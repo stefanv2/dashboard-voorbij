@@ -1,0 +1,9 @@
+services:
+  dashboard:
+    container_name: stefan-dashboard
+    build: .
+    ports:
+      - "8090:80"
+    restart: unless-stopped
+    volumes:
+      - ./img:/usr/share/nginx/html/img   # Alleen afbeeldingen mounten

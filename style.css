@@ -1,0 +1,690 @@
+/* =========================================================
+   🎨 DASHBOARD VOORBIJ - STYLE.CSS (GEOPTIMALISEERD)
+   Structuur:
+   1. Basiskleuren & variabelen
+   2. Layout & containers
+   3. Algemene componenten
+   4. Bommel-sectie
+   5. Boeken-sectie
+   6. Postcode-sectie
+   7. Footer
+========================================================= */
+/* === 1. BASISKLEUREN & VARIABELEN === */
+:root {
+    --bg: #0f1220;
+    --card: #171a2b;
+    --muted: #8a90ad;
+    --text: #e7ebff;
+    --accent: #6ee7ff;
+    --accent-2: #7c4dff;
+    --good: #22c55e;
+    --warn: #f59e0b;
+    --bubble: #e6d5c3;
+    --bubble-text: #3d2f22;
+    --chip: #23263a;
+    --shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+/* === 2. LAYOUT & CONTAINERS === */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, system-ui, sans-serif;
+    color: var(--text);
+    background: radial-gradient(1200px 600px at 15% -10%, #1d2240 0%, #0f1220 60%) fixed,
+              conic-gradient(from 210deg at 80% -10%, #12162b, #0d1023, #12162b) fixed;
+    background-color: var(--bg);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+}
+
+.grid {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 980px) {
+    .grid {
+        grid-template-columns: 360px 1fr;
+    }
+}
+
+/* === 3. ALGEMENE COMPONENTEN === */
+/* --- Header --- */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: clamp(1.4rem, 2.4vw, 2.1rem);
+    font-family: "Varela Round", sans-serif;
+}
+
+.chip {
+    background: linear-gradient(135deg, #1f2340, #171a2b);
+    color: #b8c0ff;
+    border: 1px solid #2a2e4a;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: 0.8rem;
+}
+
+/* --- Kaarten / Boxes --- */
+.card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 18%), var(--card);
+    border: 1px solid #222642;
+    border-radius: 14px;
+    box-shadow: var(--shadow);
+    padding: 18px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    margin: 0 0 14px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tag {
+    font-size: 0.8rem;
+    padding: 5px 9px;
+    background: #20233a;
+    border: 1px solid #2b2f4b;
+    border-radius: 10px;
+    color: #b3b8d6;
+}
+
+/* --- Knoppen --- */
+.btn {
+    appearance: none;
+    border: 0;
+    cursor: pointer;
+    padding: 9px 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    background: linear-gradient(180deg, #bcefff, #86dfff);
+    color: #0e1020;
+}
+
+.btn.alt {
+    background: linear-gradient(180deg, #d0c6ff, #b6a5ff);
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* --- Invoervelden --- */
+.input {
+    background: #0f1326;
+    color: #dfe3ff;
+    border: 1px solid #272b48;
+    padding: 9px 11px;
+    border-radius: 10px;
+}
+
+/* === 4. BOMMEL-SECTIE === */
+.bommel-wrap {
+    display: flex;
+    gap: 14px;
+}
+
+.bommel-figure {
+    width: 130px;
+    height: 130px;
+    border-radius: 12px;
+    border: 1px solid #4b4036;
+    box-shadow: var(--shadow);
+    transition: opacity 0.4s ease-in-out;
+    object-fit: cover;
+    background: none !important;
+}
+
+.speech {
+    position: relative;
+    background: var(--bubble);
+    color: var(--bubble-text);
+    border-radius: 14px;
+    padding: 14px 16px;
+    font-family: "Varela Round", sans-serif;
+    flex: 1;
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.25);
+}
+
+.speech:after {
+    content: "";
+    position: absolute;
+    left: -10px;
+    top: 16px;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 12px solid var(--bubble);
+}
+
+.toolbar {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* === 5. BOEKEN-SECTIE === */
+/* === Tabs boven Boeken/Strips === */
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 12px;
+    position: relative;
+    top: -5px;
+
+    /* schuift de tabs iets omhoog */
+}
+
+.tab {
+    background: #1f2337;
+    color: #cfd5ff;
+    border: 1px solid #2b2f48;
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.tab.active {
+    background: var(--accent-2);
+    color: #fff;
+    border-color: var(--accent-2);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: grid;
+}
+
+.comics-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+.books-toolbar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.books-grid {
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+}
+
+#book-q {
+    width: 150px;
+
+    /* bijvoorbeeld 180px, pas aan wat jij mooi vindt */
+}
+
+.book {
+    background: #12162b;
+    border: 1px solid #262b47;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.book img {
+    width: 100px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #0b0e1e;
+}
+
+#btn-random i {
+    color: #0A2A43;
+
+    /* wit icoon */
+    margin-right: 6px;
+
+    /* ruimte tussen icoon en tekst */
+    font-size: 1.2rem;
+
+    /* iets groter als je wilt */
+}
+
+.book h4 {
+    margin: 0 0 6px;
+}
+
+.book .author {
+    color: #b4b9d7;
+    font-size: 0.9rem;
+}
+
+.book .desc {
+    font-size: 0.85rem;
+    color: #cdd1ec;
+    margin-bottom: 6px;
+}
+
+.book a {
+    color: #98c7ff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.books-title img {
+    height: 32px;
+
+    /* of 40px wat mooi is */
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+/* === 6. POSTCODE-SECTIE === */
+.postcode-grid {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+#pc {
+    width: 120px;
+    padding: 5px 7px;
+    font-size: 0.9rem;
+}
+
+#hnr {
+    width: 70px;
+    padding: 6px 1px 6px 8px;
+    font-size: 0.9rem;
+}
+
+#btn-zoek {
+    margin-left: auto;
+    position: relative;
+    top: -5px;
+
+    /* visuele correctie voor lijn met inputvelden */
+}
+
+.muted {
+    color: var(--muted);
+    font-size: 0.92rem;
+}
+
+.ok {
+    color: var(--good);
+}
+
+.bad {
+    color: #ff7777;
+}
+
+/* --- Kaart --- */
+#map {
+    height: 250px;
+    margin-top: 15px;
+    border: 1px solid #2a2f4a;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+/* === 7. FOOTER === */
+footer {
+    margin-top: 24px;
+    text-align: center;
+    color: #aab1d8;
+    font-size: 0.85rem;
+}
+
+/* 🎲 Dobbelsteen animatie */
+@keyframes dice-roll {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(90deg);
+    }
+
+    50% {
+        transform: rotate(180deg);
+    }
+
+    75% {
+        transform: rotate(270deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.dice-rolling {
+    animation: dice-roll 0.5s ease-in-out;
+}
+
+/* ✅ Strips: eigen layout, los van boeken */
+#comic-list {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)) !important;
+    gap: 24px !important;
+    padding: 10px;
+    justify-items: center; /* afbeeldingsblokken centreren */
+}
+
+/* 📘 Elke strip-cover wordt een kaartelement, maar zonder boek-styling */
+#comic-list .book {
+    display: block !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    text-align: center;
+}
+
+/* 🎨 Afbeelding styling voor strips */
+#comic-list .book img {
+    width: 170px;
+    height: auto;
+    border-radius: 4px;
+    box-shadow: 0 5px 12px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: block;
+    margin: 0 auto;
+}
+
+/* 🎨 Subtiel hover-effect met warme oranje glow */
+#comic-list .book img {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+#comic-list .book img:hover {
+  transform: scale(1.03); /* lichte vergroting */
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.45),
+    0 0 14px rgba(255, 165, 0, 0.45),   /* warme oranje gloed */
+    0 0 24px rgba(255, 140, 0, 0.35);   /* zachte tweede ring */
+  filter: brightness(1.07); /* iets helderder */
+}
+
+.comics-toolbar {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+/* ✅ Zorg dat Strips-tab en dobbelsteen als één groep naast elkaar staan */
+.tab-with-dice {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* ruimte tussen knop en dobbelsteen */
+}
+
+/* Dobbelsteen kleiner, passend bij tabs */
+#btn-random-comics {
+  background: #2b2f45;
+  border: 1px solid #2b2f48;
+  padding: 6px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+#btn-random-comics i {
+  font-size: 1rem;
+  color: #cfd5ff;
+}
+
+#btn-random-comics:hover {
+  background: #3c4262;
+}
+
+/* Dobbelsteen voor strips standaard verbergen */
+#btn-random-comics {
+  display: none;
+}
+
+/* 💡 Strakke rechthoekige statuslampjes */
+.lamp {
+  display: inline-block;
+  width: 28px;
+  height: 8px;
+  border-radius: 2px;                    /* 🔹 bijna vierkant */
+  background: linear-gradient(180deg, #444, #222);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+  transition: all 0.3s ease;
+}
+
+/* 🟢 Online */
+.lamp.online {
+  background: linear-gradient(180deg, #00e676, #00b248);
+  box-shadow:
+    0 0 4px rgba(0, 230, 118, 0.6),
+    0 0 10px rgba(0, 230, 118, 0.4),
+    inset 0 0 2px rgba(255,255,255,0.2);
+  animation: pulseGreen 2s infinite ease-in-out;
+}
+
+/* 🔴 Offline */
+.lamp.offline {
+  background: linear-gradient(180deg, #ff5252, #c62828);
+  box-shadow:
+    0 0 4px rgba(255, 82, 82, 0.6),
+    0 0 10px rgba(255, 82, 82, 0.3),
+    inset 0 0 2px rgba(255,255,255,0.2);
+}
+
+/* 🟠 Stefan */
+.lamp.stefan {
+  background: linear-gradient(180deg, #ffb74d, #ef6c00);
+  box-shadow:
+    0 0 4px rgba(255, 183, 77, 0.8),
+    0 0 10px rgba(255, 160, 0, 0.5),
+    inset 0 0 2px rgba(255,255,255,0.3);
+  animation: pulseOrange 2s infinite ease-in-out;
+}
+
+/* 🌟 Pulsanimaties */
+@keyframes pulseGreen {
+  0%, 100% {
+    box-shadow:
+      0 0 4px rgba(0, 230, 118, 0.6),
+      0 0 10px rgba(0, 230, 118, 0.4),
+      inset 0 0 2px rgba(255,255,255,0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 8px rgba(0, 255, 140, 1),
+      0 0 16px rgba(0, 255, 140, 0.6),
+      inset 0 0 3px rgba(255,255,255,0.3);
+  }
+}
+
+@keyframes pulseOrange {
+  0%, 100% {
+    box-shadow:
+      0 0 4px rgba(255, 183, 77, 0.8),
+      0 0 10px rgba(255, 160, 0, 0.5),
+      inset 0 0 2px rgba(255,255,255,0.3);
+  }
+  50% {
+    box-shadow:
+      0 0 8px rgba(255, 193, 7, 1),
+      0 0 14px rgba(255, 193, 7, 0.7),
+      inset 0 0 3px rgba(255,255,255,0.4);
+  }
+}
+
+
+/* 📋 LABEL-OPMAAK ---------------------------------------------------- */
+.status-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.status-label {
+  color: #ddd;
+  font-weight: 500;
+}
+
+/* ✅ Nette verticale uitlijning van statuslampjes */
+.status-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* Elke statusregel */
+.status-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  padding: 6px 10px;
+  box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Label (icoon + tekst) */
+.status-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #ddd;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+/* Lamp en eventuele status-tekst samen gecentreerd rechts */
+.status-item .lamp,
+.status-item .status-text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Kleine ruimte tussen lamp en tekst */
+.status-item .status-text {
+  margin-left: 6px;
+  color: #ccc;
+  font-size: 0.85rem;
+}
+
+#bommel-img {
+  width: 100%;
+  max-width: 120px;
+  transition: opacity 0.3s ease;
+  border-radius: 10px;
+}
+
+/* 🍔 Menu container */
+.menu-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px; /* afstand tussen hamburger en titel */
+  margin-left: 10px;
+}
+
+/* 🍔 Witte hamburgerknop */
+.hamburger img {
+  width: 40px;                    /* iets groter */
+  height: 40px;
+  border-radius: 50%;
+  background: #ffffff;            /* witte achtergrond */
+  padding: 8px;                   /* meer ruimte rondom icoon */
+  cursor: pointer;
+  object-fit: contain;
+  transition: transform 0.25s ease, box-shadow 0.3s ease, background 0.3s ease;
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.4),
+    inset 0 0 4px rgba(255, 255, 255, 0.4);
+}
+
+/* Hover-effect met warme oranje gloed */
+.hamburger img:hover {
+  transform: scale(1.08);
+  background: #fff6e5;
+  box-shadow:
+    0 0 10px rgba(255, 183, 77, 0.6),
+    0 0 18px rgba(255, 140, 0, 0.4);
+}
+
+/* 📋 Dropdown menu */
+.menu-links {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 46px;
+  left: 0;
+  background: #3a3a3a;
+  border: 1px solid #555;
+  border-radius: 10px;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.5);
+  z-index: 10;
+  min-width: 220px;
+  padding: 6px 0;
+}
+
+/* Links in menu */
+.menu-links a {
+  color: #f5f5f5;
+  text-decoration: none;
+  padding: 10px 18px;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #4a4a4a;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+
+.menu-links a:last-child {
+  border-bottom: none;
+}
+
+.menu-links a:hover {
+  background: #505050;
+  color: #ffb74d;
+}
+
+/* Toon menu bij toggle */
+.menu-links.show {
+  display: flex;
+  animation: fadeDown 0.25s ease;
+}
+
+/* 🔽 Soepele fade-slide animatie */
+@keyframes fadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
