@@ -3,7 +3,7 @@
 ---
 
 <p align="center">
-<img src="img/dashboard.png" alt="BTOP" width="120" height="120"/>  
+<img src="plaatje/dashboard.png" alt="BTOP" width="120" height="120"/>  
 </p>
 
 ---
