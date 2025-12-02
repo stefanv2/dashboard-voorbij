@@ -19,7 +19,7 @@
                     </div>
                     <h1>Dashboard Voorbij</h1>
                     <!-- 📋 Verborgen links (dropdown) -->
-                    <div id="menuLinks" class="menu-links"><a href="https://kavita.voorbij.duckdns.org" target="_blank">📖 Kavita</a><a href="https://calibre.voorbij.duckdns.org" target="_blank">📚 Calibre-Web</a><a href="https://github.com/stefanv2" target="_blank">🧑‍💻 Github</a>
+                    <div id="menuLinks" class="menu-links"><a href="https://kavita.voorbij.duckdns.org" target="_blank">📖 Kavita</a><a href="https://voorbij.duckdns.org/calibre-web" target="_blank">📚 Calibre-Web</a><a href="https://github.com/stefanv2" target="_blank">🧭 Github</a>
                     </div>
                 </div>
             </header>
@@ -44,11 +44,11 @@
                     <!-- 🧭 POSTCODE -->
                     <section class="card">
                         <div class="section-title">
-                            🧭 Adres / Postcode <span class="tag">Postgres</span>
+                            🧭 Adres / Postcode <span class="tag">KTB</span>
                         </div>
                         <div class="postcode-grid">
-                            <input class="input" id="pc" placeholder="Postcode (bv. 1234AB)">
-                            <input class="input" id="hnr" placeholder="Huisnr (bv. 123)" type="number">
+                            <input class="input" id="pc" placeholder="Postcode (bv. 2014SL)">
+                            <input class="input" id="hnr" placeholder="Huisnr (bv. 203)" type="number">
                             <button class="btn alt" id="btn-zoek">Zoek</button>
                         </div>
                         <div id="pc-res" class="muted">
@@ -64,7 +64,7 @@
                                 <span id="status-calibre" class="lamp"></span>
                             </div>
                             <div class="status-item">
-                                <span class="status-label">📖 comic pagina:</span>
+                                <span class="status-label">📖 Comic pagina:</span>
                                 <span id="status-kavita" class="lamp"></span>
                             </div>
                             <div class="status-item">
@@ -282,8 +282,19 @@ function loadComics() {
         const title = el('h4'); title.textContent = row.title || "Onbekende titel";
         const author = el('div','author'); author.textContent = row.author || "Onbekende auteur";
         const desc = el('div','desc'); desc.textContent = row.description || "";
+        
+	// 🛠 Extract only the path (/book/ID)
+        let path = row.link;
+
+        // als de link begint met http, strip domain eraf
+        if (path.startsWith("http")) {
+        path = new URL(path).pathname;   // resultaat: /book/5717
+        }     
+
         const link = el('a','a');
-        link.href = row.link; link.target="_blank"; link.textContent="Bekijk in Calibre-Web";
+        link.href = `https://calibre.voorbij.duckdns.org${path}`;
+        link.target = "_blank";
+        link.textContent = "Bekijk in Calibre-Web";
 
         meta.appendChild(title);
         meta.appendChild(author);
