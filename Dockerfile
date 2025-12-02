@@ -1,12 +1,10 @@
 FROM nginx:alpine
 
-# Verwijder standaard website
+# Maak directory schoon
 RUN rm -rf /usr/share/nginx/html/*
 
-# Kopieer jouw dashboard
-COPY index.html /usr/share/nginx/html/index.html
+# Kopieer ALLE bestanden van je dashboard
+COPY . /usr/share/nginx/html/
 
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+# Nginx serveert automatisch vanaf /usr/share/nginx/html
 
