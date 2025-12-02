@@ -8,105 +8,218 @@
 
 ---
 
-🧭 Over dit project — Dashboard Voorbij
+?? Over dit project � Dashboard Voorbij
 
-Dashboard Voorbij is een persoonlijk, multifunctioneel startportaal dat allerlei handige tools en microservices samenbrengt in één overzichtelijke webinterface. Het dashboard draait volledig in Docker en combineert zowel technische features als leuke dagelijkse hulpmiddelen. Alles is ontworpen met een strakke, moderne UI met zachte neon-accenten.
+Dashboard Voorbij is een persoonlijk, multifunctioneel startportaal dat allerlei handige tools en microservices samenbrengt in ��n overzichtelijke webinterface. Het dashboard draait volledig in Docker en combineert zowel technische features als leuke dagelijkse hulpmiddelen. Alles is ontworpen met een strakke, moderne UI met zachte neon-accenten.
+
+? Wat kun je ermee?
+?? Bommel-Quotes
+
+Elke keer dat je de pagina opent krijg je een nieuwe, willekeurige Bommel-quote te zien � een lichte, speelse touch die het dashboard karakter geeft.
+
+?? Postcode & Adres Zoeker
+
+Zoek op adres, straatnaam of postcode. Dankzij een combinatie van PostgreSQL en slimme fuzzy search krijg je razendsnel relevante resultaten.
+
+?? Boeken & Strips via Calibre/Kavita
+
+Je kunt direct bladeren door je boekencollectie of strips:
+
+Mooie coverweergave
+
+Overzichtelijke kaartjes
+
+�Bekijk in Calibre-Web�-linkjes voor direct openen
+
+Willekeurige boek/strip feature voor inspiratie
+
+?? Online Status Indicators
+
+In ��n oogopslag zie je of de microservices achter je dashboard online zijn:
+
+Boeken pagina
+
+Comics pagina
+
+Je eigen (slack) bots
+De lampjes hebben een zachte glow, zodat de status meteen duidelijk is.
+
+?? Onder de motorkap
+
+Het dashboard gebruikt:
+
+Node.js voor API�s en communicatie
+
+Express routes voor Slack, adressen en boeken
+
+PostgreSQL voor snelle zoekopdrachten
+
+Fuse.js voor fuzzy matching van adressen
+
+Docker Compose voor alle containers
+
+Calibre-Web en Kavita voor boeken & stripcollecties
+
+ngrok of Nginx Proxy Manager voor externe toegang
+
+Alles is modulair opgezet zodat onderdelen eenvoudig uitbreidbaar zijn.
+
+?? Doel van het project
+
+Dit dashboard is meer dan een verzameling scripts. Het is een centraal punt waar:
+
+Hobbyprojecten samenkomen
+
+Data uit verschillende bronnen netjes wordt gepresenteerd
+
+Slack-bots en externe services eenvoudig kunnen integreren
+
+Je dagelijks gemak �n plezier uit haalt
+
+Het doel is vooral: praktisch, mooi en leuk om te gebruiken.
+
+Wil je dat ik dit stukje nog uitbreid met bijvoorbeeld:
+
+? Installatie-instructies
+? Architectuurschets
+? Screenshots-sectie
+? Badges (Docker, Node.js, PostgreSQL)
+? Toekomstige plannen / TODO-lijst
+? Credits-sectie
+
+Zeg het maar � ik schrijf het graag voor je verder.
+
+Je zei:
+Kun je een readme.md hiervan maken?
+ChatGPT zei:
+
+Hier is een complete, kant-en-klare README.md voor jouw Dashboard Voorbij project.
+Strak, modern, duidelijk � en perfect geschikt voor GitHub.
+
+# Dashboard Voorbij
+
+Een modern en persoonlijk webdashboard dat verschillende microservices, databronnen en tools samenbrengt in ��n stijlvolle interface. Het project draait volledig in Docker en biedt zowel praktische functionaliteit als leuke dagelijkse features.
+
 ---
 
-## ⚙️ Functies
+## ? Functionaliteiten
 
-- 🔎 **Fuzzy search** (Fuse.js) op straat- en plaatsnamen  
-- 🗺️ Integratie met **Google Maps / OpenStreetMap**  
-- 💬 **Slack-slash-commands** (`/adres`, `/postcode`, `/grafiek`, …)  
-- 💾 Backend met **PostgreSQL** (container `pg-container`)  
-- 🌐 Frontend-dashboard met HTML + CSS  
-- 🐳 Klaar voor gebruik via **Docker Compose**
+### ?? Bommel-Quotes
+Een speels onderdeel dat bij elke pagina-verversing een nieuwe, willekeurige Bommel-quote presenteert. Licht, humoristisch en helemaal in stijl.
 
----
+### ?? Postcode & Adres Zoeker
+Zoek razendsnel naar adressen via:
+- Postcode + huisnummer  
+- Straatnaam + plaats  
+- Fuzzy search voor spellingsvarianten  
 
-## 🧩 Projectstructuur
+Technologie: **PostgreSQL** + **Fuse.js**.
 
-mijn_postgres_slackbot/
-├── Dockerfile
-├── docker-compose.yml
-├── index.html # Dashboard UI
-├── style.css # Stijlen voor het dashboard
-├── routes/ # Slack-routes
-│ ├── slack.js
-│ └── slack-adres.js
-├── fuse-data.json # Vooraf geladen zoekindex
-├── .env.example # Voorbeeld van omgevingsvariabelen
-├── package.json
-└── .gitignore
+### ?? Boeken & Strips (Calibre / Kavita)
+Het dashboard toont je collectie in een nette, moderne lay-out:
+- Mooie cover-weergave  
+- Beschrijvingen en metadata  
+- Links naar Calibre-Web  
+- Willekeurige boek/strip voor inspiratie  
 
-yaml
-Code kopiëren
+### ?? Online Status Indicatoren
+Een helder statusblok dat toont welke services online zijn:  
+Boekenpagina, comicpagina, Slack-services en meer.  
+Met zachte neon glow voor snelle herkenning.
 
 ---
 
-## 🚀 Gebruik
+## ?? Architectuur
 
-### 1️⃣ Bouw en start met Docker
-```bash
-docker build -t slack-postcodebot .
-docker run -d --name slack-postcodebot -p 3002:3002 slack-postcodebot
-Of gebruik docker-compose:
+Het project gebruikt een modulair ontwerp zodat onderdelen eenvoudig uitbreidbaar zijn.
 
-bash
-Code kopiëren
-docker-compose up -d
-2️⃣ Voorbeeld .env
-Maak een .env bestand op basis van .env.example:
+### ?? Technologie�n
+- **Node.js** backend  
+- **Express** voor API-routes  
+- **PostgreSQL** voor opslag en queries  
+- **Fuse.js** voor fuzzy matching  
+- **Calibre-Web** en **Kavita** voor media  
+- **Docker Compose** voor orchestratie  
+- **ngrok** of **Nginx Proxy Manager** voor externe toegang  
+- **Slack API** voor slash-commands en bots  
 
-ini
-Code kopiëren
-SLACK_BOT_TOKEN=xoxb-xxxxxxxxxxxxx
-SLACK_SIGNING_SECRET=xxxxxx
-DB_HOST=pg-container
-DB_PORT=5432
-DB_USER=postman
-DB_PASS=*****
-DB_NAME=postcode
-PUBLIC_URL_SLACK=https://voorbij.duckdns.org
-3️⃣ Test lokaal
-Start de server handmatig:
+### ?? Microservices / Containers
+- `slack-postcodebot`
+- `slack-adresbot`
+- `calibre-web`
+- `kavita`
+- `pg-container` (PostgreSQL)
+- `dashboard` (front-end)
 
-bash
-Code kopiëren
-npm install
-npm start
-Bezoek:
+---
 
-arduino
-Code kopiëren
-http://localhost:3002
-🧠 Technologieën
-Component	Technologie
-Slack integratie	Slack API + Express
-Database	PostgreSQL
-Search	Fuse.js
-Containerisatie	Docker
-Frontend	HTML + CSS + JS
+## ?? Illustratie
 
-📦 Deployment
-Push image naar lokale registry (optioneel):
+Hieronder een moderne flat-stijl illustratie van het dashboardconcept:
 
-bash
-Code kopiëren
-docker push 192.168.2.11:5000/slack-postcodebot:latest
-Gebruik Nginx Proxy Manager of reverse proxy voor HTTPS.
+*(voeg hier de gegenereerde afbeelding toe in GitHub)*  
+```markdown
+![Dashboard Voorbij Illustratie](./illustratie.png)
 
-Gebruik ngrok of DuckDNS voor publieke toegang.
+?? Installatie
+1. Repo clonen
+git clone https://github.com/stefanv2/dashboard-voorbij.git
+cd dashboard-voorbij
 
-🧰 Handige commando’s
-Doel	Commando
-Logs bekijken	docker logs -f slack-postcodebot
-Container herstarten	docker restart slack-postcodebot
-Lokale rebuild	docker compose build --no-cache
+2. .env aanmaken
 
-🧑‍💻 Auteur
-Stefan V.
-Oracle DBA • PostgreSQL & Linux admin
-GitHub: stefanv2
+Voor bijvoorbeeld database-connectie, Slack tokens, etc.
 
-"Soms is één query genoeg om je hele wereld te veranderen." 💡
+3. Docker opstarten
+docker compose up -d
+
+4. Dashboard openen
+
+Browser ? http://<host>:<port>
+
+?? Configuratie
+PostgreSQL
+
+Importeer je adresdata of andere tabellen:
+
+CREATE DATABASE postcode;
+\c postcode
+
+-- Voorbeeld: KTB_PCDATA import
+COPY ktb_pcdata
+FROM '/import/ktb_pcdata.csv'
+WITH (FORMAT csv, HEADER true);
+
+Slack integratie
+
+Configureer Slash Commands
+
+Geef je ngrok of NPM-endpoint op
+
+Voeg tokens toe aan .env
+
+?? Toekomstige plannen
+
+Integratie met LLM-agent voor slimme vragen
+
+Historie van zoekopdrachten
+
+Notificatiesysteem
+
+Meer kaartvisualisaties (Google Maps / OSM)
+
+Integratie met Jellyfin dashboards
+
+Widget-system met drag & drop
+
+Donkere en lichte thema�s
+
+????? Over
+
+Dit dashboard is gebouwd als persoonlijk project:
+een centrale plek waar hobby, data en automatisering samenkomen.
+Praktisch, snel, visueel aantrekkelijk � en vooral leuk om dagelijks te gebruiken.
+
+?? Licentie
+
+MIT License.
