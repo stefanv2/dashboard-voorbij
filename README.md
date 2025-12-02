@@ -1,4 +1,4 @@
-# üåç Voorbij Slackbot & Dashboard
+# Voorbij Slackbot & Dashboard
 
 ---
 
@@ -14,12 +14,12 @@ Een modern en persoonlijk webdashboard dat verschillende microservices, databron
 
 ---
 
-## ? Functionaliteiten
+## ø Functionaliteiten
 
-### ?? Bommel-Quotes
+### ø Bommel-Quotes
 Een speels onderdeel dat bij elke pagina-verversing een nieuwe, willekeurige Bommel-quote presenteert. Licht, humoristisch en helemaal in stijl.
 
-### ?? Postcode & Adres Zoeker
+### ø Postcode & Adres Zoeker
 Zoek razendsnel naar adressen via:
 - Postcode + huisnummer
 - Straatnaam + plaats
@@ -27,25 +27,25 @@ Zoek razendsnel naar adressen via:
 
 Technologie: **PostgreSQL** + **Fuse.js**.
 
-### ?? Boeken & Strips (Calibre / Kavita)
+### ø Boeken & Strips (Calibre / Kavita)
 Het dashboard toont je collectie in een nette, moderne lay-out:
 - Cover-weergave
 - Beschrijvingen en metadata
 - Links naar Calibre-Web
 - Willekeurige boek/strip voor inspiratie
 
-### ?? Online Status Indicatoren
+### ø Online Status Indicatoren
 Een helder statusblok dat toont welke services online zijn:
 Boekenpagina, comicpagina, Slack-services en meer.  
 Met zachte neon glow voor snelle herkenning.
 
 ---
 
-## ?? Architectuur
+## ø Architectuur
 
 Het project gebruikt een modulair ontwerp zodat onderdelen eenvoudig uitbreidbaar zijn.
 
-### ?? TechnologieÎn
+### ø TechnologieÎn
 - **Node.js** backend  
 - **Express** voor API-routes  
 - **PostgreSQL** voor opslag en queries  
@@ -55,7 +55,7 @@ Het project gebruikt een modulair ontwerp zodat onderdelen eenvoudig uitbreidbaa
 - **ngrok** of **Nginx Proxy Manager** voor externe toegang  
 - **Slack API** voor slash-commands en bots  
 
-### ?? Microservices / Containers
+### ø Microservices / Containers
 - `slack-postcodebot`
 - `slack-adresbot`
 - `calibre-web`
@@ -65,11 +65,10 @@ Het project gebruikt een modulair ontwerp zodat onderdelen eenvoudig uitbreidbaa
 
 ---
 
-## ?? Illustratie
+## ø Illustratie
 
 Voeg hieronder de illustratie toe:
 
 ```markdown
 ![Dashboard Voorbij Illustratie](./illustratie.png)
-
 
