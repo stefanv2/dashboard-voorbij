@@ -9,42 +9,42 @@
 ---
 # Dashboard Voorbij
 
-Een modern en persoonlijk webdashboard dat verschillende microservices, databronnen en tools samenbrengt in één stijlvolle interface. Het project draait volledig in Docker en biedt zowel praktische functionaliteit als leuke dagelijkse features.
+Een modern en persoonlijk webdashboard dat verschillende microservices, databronnen en tools samenbrengt in Ã©Ã©n stijlvolle interface. Het project draait volledig in Docker en biedt zowel praktische functionaliteit als leuke dagelijkse features.
 
 ---
 
-## ¿ Functionaliteiten
+## âœ¨ Functionaliteiten
 
-### ¿ Bommel-Quotes
+### ğŸ¦ Bommel-Quotes
 Een speels onderdeel dat bij elke pagina-verversing een nieuwe, willekeurige Bommel-quote presenteert. Licht, humoristisch en helemaal in stijl.
 
-### ¿ Postcode & Adres Zoeker
+### ğŸ  Postcode & Adres Zoeker
 Zoek razendsnel naar adressen via:
-- Postcode + huisnummer
-- Straatnaam + plaats
-- Fuzzy search voor spellingsvarianten
+- Postcode + huisnummer  
+- Straatnaam + plaats  
+- Fuzzy search voor spellingsvarianten  
 
 Technologie: **PostgreSQL** + **Fuse.js**.
 
-### ¿ Boeken & Strips (Calibre / Kavita)
+### ğŸ“š Boeken & Strips (Calibre / Kavita)
 Het dashboard toont je collectie in een nette, moderne lay-out:
-- Cover-weergave
-- Beschrijvingen en metadata
-- Links naar Calibre-Web
-- Willekeurige boek/strip voor inspiratie
+- Mooie cover-weergave  
+- Beschrijvingen en metadata  
+- Links naar Calibre-Web  
+- Willekeurige boek/strip voor inspiratie  
 
-### ¿ Online Status Indicatoren
-Een helder statusblok dat toont welke services online zijn:
+### ğŸŸ¢ Online Status Indicatoren
+Een helder statusblok dat toont welke services online zijn:  
 Boekenpagina, comicpagina, Slack-services en meer.  
 Met zachte neon glow voor snelle herkenning.
 
 ---
 
-## ¿ Architectuur
+## ğŸ§± Architectuur
 
 Het project gebruikt een modulair ontwerp zodat onderdelen eenvoudig uitbreidbaar zijn.
 
-### ¿ Technologieën
+### ğŸ”§ TechnologieÃ«n
 - **Node.js** backend  
 - **Express** voor API-routes  
 - **PostgreSQL** voor opslag en queries  
@@ -54,20 +54,21 @@ Het project gebruikt een modulair ontwerp zodat onderdelen eenvoudig uitbreidbaa
 - **ngrok** of **Nginx Proxy Manager** voor externe toegang  
 - **Slack API** voor slash-commands en bots  
 
-### ¿ Microservices / Containers
+### ğŸ“¦ Microservices / Containers
 - `slack-postcodebot`
 - `slack-adresbot`
 - `calibre-web`
 - `kavita`
-- `pg-container`
+- `pg-container` (PostgreSQL)
 - `dashboard` (front-end)
 
 ---
 
-## ¿ Illustratie
+## ğŸ“¸ Illustratie
 
-Voeg hieronder de illustratie toe:
+Hieronder een moderne flat-stijl illustratie van het dashboardconcept:
 
+*(voeg hier de gegenereerde afbeelding toe in GitHub)*  
 ```markdown
 ![Dashboard Voorbij Illustratie](./illustratie.png)
 
