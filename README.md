@@ -1,5 +1,15 @@
 # 🌍 Voorbij Slackbot & Dashboard
 
+---
+
+<p align="center">
+<img src="img/dashboard.png" alt="BTOP" width="120" height="120"/>  
+</p>
+
+---
+
+
+
 Een persoonlijk project waarin **Slack-integratie**, **PostgreSQL** en een **visueel dashboard** samenkomen.  
 De bot beantwoordt Slack-commando’s (zoals `/adres` en `/postcode`), terwijl het dashboard real-time informatie en kaarten toont.  
 Gebouwd in **Node.js**, **Express**, en gedraaid in Docker-containers.
