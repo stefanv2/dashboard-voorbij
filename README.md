@@ -8,12 +8,9 @@
 
 ---
 
+🧭 Over dit project — Dashboard Voorbij
 
-
-Een persoonlijk project waarin **Slack-integratie**, **PostgreSQL** en een **visueel dashboard** samenkomen.  
-De bot beantwoordt Slack-commando’s (zoals `/adres` en `/postcode`), terwijl het dashboard real-time informatie en kaarten toont.  
-Gebouwd in **Node.js**, **Express**, en gedraaid in Docker-containers.
-
+Dashboard Voorbij is een persoonlijk, multifunctioneel startportaal dat allerlei handige tools en microservices samenbrengt in één overzichtelijke webinterface. Het dashboard draait volledig in Docker en combineert zowel technische features als leuke dagelijkse hulpmiddelen. Alles is ontworpen met een strakke, moderne UI met zachte neon-accenten.
 ---
 
 ## ⚙️ Functies
