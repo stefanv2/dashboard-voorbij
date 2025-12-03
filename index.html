@@ -19,7 +19,7 @@
                     </div>
                     <h1>Dashboard Voorbij</h1>
                     <!-- 📋 Verborgen links (dropdown) -->
-                    <div id="menuLinks" class="menu-links"><a href="https://kavita.voorbij.duckdns.org" target="_blank">📖 Kavita</a><a href="https://voorbij.duckdns.org/calibre-web" target="_blank">📚 Calibre-Web</a><a href="https://github.com/stefanv2" target="_blank">🧭 Github</a>
+                    <div id="menuLinks" class="menu-links"><a href="https://kavita.voorbij.duckdns.org" target="_blank">📖 Kavita</a><a href="https://calibre.voorbij.duckdns.org" target="_blank">📚 Calibre-Web</a><a href="https://github.com/stefanv2" target="_blank">🧭 Github</a>
                     </div>
                 </div>
             </header>
@@ -158,35 +158,62 @@ function rotateBommel() {
 // ⏱️ elke 10 seconden wisselen
 setInterval(rotateBommel, 20000);
 
-// 🌐 STATUS LAMPJES CHECK — tolerant voor opaque responses (CORS)
-async function checkService(url, lampId) {
-  const lamp = document.getElementById(lampId);
-  if (!lamp) return;
+// 🌐 STATUS CHECK - CONTROLE OP MOUNT POINTS (VIA COVERS)
+function pingService(fullUrl, lampId) {
+    const lamp = document.getElementById(lampId);
+    if (!lamp) return;
 
-  try {
-    const res = await fetch(url, { method: "HEAD", mode: "no-cors" });
+    // Reset kleur (optioneel, of laat staan op laatste status)
+    // lamp.classList.remove("online", "offline"); 
 
-    // Bij mode:no-cors krijg je altijd een opaque response
-    // → beschouwen we als 'online' als er geen netwerkfout was
-    lamp.classList.add("online");
-  } catch (e) {
-    lamp.classList.add("offline");
-  }
+    const img = new Image();
+
+    img.onload = () => {
+        lamp.classList.remove("offline");
+        lamp.classList.add("online");
+        console.log(`✅ Opslag OK: ${lampId}`);
+    };
+
+    img.onerror = () => {
+        lamp.classList.remove("online");
+        lamp.classList.add("offline");
+        console.warn(`❌ Opslag FOUT of Server weg: ${lampId}`);
+    };
+
+    // We voegen een random nummer toe (cb) zodat de browser het plaatje niet uit de cache haalt,
+    // maar écht opnieuw van de schijf probeert te lezen.
+    // We checken of er al een '?' in de URL zit (sommige systemen gebruiken query params).
+    const separator = fullUrl.includes('?') ? '&' : '?';
+    img.src = `${fullUrl}${separator}cb=${Date.now()}`;
 }
 
-// 🌐 STATUS CHECK MET HERHALING
+// 🌐 CONFIGURATIE EN HERHALING
 window.addEventListener("load", () => {
-  // eerste check meteen bij laden
-  checkService("https://calibre.voorbij.duckdns.org", "status-calibre", "text-calibre");
-  checkService("https://kavita.voorbij.duckdns.org", "status-kavita", "text-kavita");
+    
+    // 👇 HIER PLAK JE DE LINKS NAAR JE BOEK COVERS 👇
+    const checkList = [
+        { 
+            id: "status-calibre", 
+            // Voorbeeld: link naar cover van boek ID 10
+            url: "https://calibre.voorbij.duckdns.org/cover/2183" 
+        },
+        { 
+            id: "status-kavita", 
+            // Voorbeeld: link naar cover image api
+            url: "https://calibre.voorbij.duckdns.org/cover/2183" 
+        }
+    ];
 
-  // daarna elke minuut herhalen
-  setInterval(() => {
-    checkService("https://calibre.voorbij.duckdns.org", "status-calibre", "text-calibre");
-    checkService("https://kavita.voorbij.duckdns.org", "status-kavita", "text-kavita");
-  }, 60000); // 60000ms = 1 minuut
+    const runChecks = () => {
+        checkList.forEach(item => pingService(item.url, item.id));
+    };
+
+    // Eerste check bij laden
+    runChecks();
+
+    // Herhaal elke minuut (60000 ms)
+    setInterval(runChecks, 60000);
 });
-
 
 // 🎲 Animatie voor strips-dobbelsteen
 document.getElementById('btn-random-comics').addEventListener('click', () => {
