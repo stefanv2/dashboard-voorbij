@@ -19,7 +19,7 @@
                     </div>
                     <h1>Dashboard Voorbij</h1>
                     <!-- 📋 Verborgen links (dropdown) -->
-                    <div id="menuLinks" class="menu-links"><a href="https://kavita.voorbij.duckdns.org" target="_blank">📖 Comics</a><a href="https://calibre.voorbij.duckdns.org" target="_blank">📚 Boekjes</a></a><a href="https://blaadjes.voorbij.duckdns.org" target="_blank">🗞️ Blaadjes</a><a href="https://video.voorbij.duckdns.org" target="_blank">🎥 video</a><a href="https://github.com/stefanv2" target="_blank">🧭 Github</a>
+                    <div id="menuLinks" class="menu-links"><a href="https://kavita.voorbij.duckdns.org" target="_blank" rel="noopener noreferrer">📖 Comics</a><a href="https://calibre.voorbij.duckdns.org" target="_blank" rel="noopener noreferrer">📚 Boekjes</a></a><a href="https://blaadjes.voorbij.duckdns.org" target="_blank" rel="noopener noreferrer">🗞️ Blaadjes</a><a href="https://video.voorbij.duckdns.org" target="_blank" rel="noopener noreferrer">🎥 video</a><a href="https://github.com/stefanv2" target="_blank" rel="noopener noreferrer">🧭 Github</a>
                     </div>
                 </div>
             </header>
@@ -112,7 +112,7 @@
                     <!-- 📓 STRIPS TAB (alleen strip covers + dobbelsteen button) -->
                     <div id="comics" class="tab-content" style="display:none;">
                         <div class="comics-toolbar">
-                            <button class="btn" id="btn-random-comics" title="Willekeurige strips"><i class="fa-solid fa-dice"></i>
+                            <button class="btn" id="btn-random-comics-toolbar" style="display:none;" title="Willekeurige strips"><i class="fa-solid fa-dice"></i>
                             </button>
                         </div>
                         <div id="comic-list" class="books-grid">
@@ -264,7 +264,7 @@ function loadComics() {
     const wrapper = document.createElement('div');
     wrapper.className = 'book';
     wrapper.innerHTML = `
-      <a href="https://kavita.voorbij.duckdns.org" target="_blank">
+      <a href="https://kavita.voorbij.duckdns.org" target="_blank" rel="noopener noreferrer">
         <img src="${src}" alt="Random comic">
       </a>
     `;
@@ -323,23 +323,28 @@ function loadComics() {
         const author = el('div','author'); author.textContent = row.author || "Onbekende auteur";
         const desc = el('div','desc'); desc.textContent = row.description || "";
         
-	// 🛠 Extract only the path (/book/ID)
-        let path = row.link;
-
-        // als de link begint met http, strip domain eraf
-        if (path.startsWith("http")) {
-        path = new URL(path).pathname;   // resultaat: /book/5717
-        }     
-
-        const link = el('a','a');
-        link.href = `https://calibre.voorbij.duckdns.org${path}`;
-        link.target = "_blank";
-        link.textContent = "Bekijk in Calibre-Web";
+        const rawLink = row.link || "";
+        let link = null;
+        if (rawLink) {
+          let path = rawLink;
+          try {
+            if (path.startsWith("http")) {
+              path = new URL(path).pathname;
+            }
+            link = el('a','a');
+            link.href = `https://calibre.voorbij.duckdns.org${path}`;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.textContent = "Bekijk in Calibre-Web";
+          } catch {
+            link = null;
+          }
+        }
 
         meta.appendChild(title);
         meta.appendChild(author);
         meta.appendChild(desc);
-        meta.appendChild(link);
+        if (link) meta.appendChild(link);
 
         card.appendChild(img);
         card.appendChild(meta);
@@ -380,28 +385,34 @@ function loadComics() {
     function renderPostcodeOk(row) {
       const elRes = document.getElementById('pc-res');
       const adres = `${row.straat} ${row.huisnummer}, ${row.plaats} (${row.postcode})`;
+      elRes.replaceChildren();
+
+      const status = el('span', 'ok');
+      status.textContent = '✅';
+      elRes.appendChild(status);
+      elRes.appendChild(document.createTextNode(` ${adres}`));
 
       if (row.lat && row.lon) {
         const lat = parseFloat(row.lat);
         const lon = parseFloat(row.lon);
-        elRes.innerHTML = `
-          <span class="ok">✅</span> ${adres}<br>
-          <iframe
-            class="osm-map"
-            width="100%"
-            height="250"
-            frameborder="0"
-            scrolling="no"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=${lon-0.002},${lat-0.002},${lon+0.002},${lat+0.002}&layer=mapnik&marker=${lat},${lon}">
-          </iframe>
-        `;
+        const iframe = el('iframe', 'osm-map');
+        iframe.width = "100%";
+        iframe.height = "250";
+        iframe.frameBorder = "0";
+        iframe.scrolling = "no";
+        iframe.src = `https://www.openstreetmap.org/export/embed.html?bbox=${lon-0.002},${lat-0.002},${lon+0.002},${lat+0.002}&layer=mapnik&marker=${lat},${lon}`;
+        elRes.appendChild(document.createElement('br'));
+        elRes.appendChild(iframe);
       } else {
-        elRes.innerHTML = `<span class="ok">✅</span> ${adres} (Geen kaart beschikbaar)`;
+        elRes.appendChild(document.createTextNode(" (Geen kaart beschikbaar)"));
       }
     }
 
     function renderPostcodeBad(msg) {
-      document.getElementById('pc-res').innerHTML = `<span class="bad">✖</span> ${msg}`;
+      const elRes = document.getElementById('pc-res');
+      const status = el('span', 'bad');
+      status.textContent = '✖';
+      elRes.replaceChildren(status, document.createTextNode(` ${msg}`));
     }
 
     async function doPostcode() {
@@ -512,12 +523,15 @@ function renderMagazines(rows) {
 
         // Link
         const link = document.createElement('a');
-        link.href = row.link;
-        link.target = "_blank";
-        link.textContent = "Open in Calibre-Web";
+        if (row.link) {
+            link.href = row.link;
+            link.target = "_blank";
+            link.rel = "noopener noreferrer";
+            link.textContent = "Open in Calibre-Web";
+        }
 
         meta.appendChild(title);
-        meta.appendChild(link);
+        if (row.link) meta.appendChild(link);
 
         card.appendChild(img);
         card.appendChild(meta);
