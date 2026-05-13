@@ -720,3 +720,47 @@ footer {
   justify-content: space-between;
   padding: 8px 20px;
 }
+
+/* ===== AANGEPASTE STIJL VOOR BLAADJES ===== */
+
+/* 1. Het grid: Forceer 4 kolommen */
+#magazines-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr); /* 4 stuks naast elkaar */
+    gap: 20px;
+}
+
+/* 2. De kaartjes zelf: Zet items ONDER elkaar in plaats van naast elkaar */
+#magazines-grid .book {
+    display: flex;
+    flex-direction: column; /* Dit zorgt dat het plaatje boven de tekst komt */
+    padding: 0;             /* Padding weghalen zodat plaatje strak tegen rand zit */
+    height: 100%;           /* Zorg dat kaartjes even lang zijn */
+    overflow: hidden;       /* Zodat plaatje binnen de ronde hoeken blijft */
+}
+
+/* 3. Het plaatje: Moet de volledige breedte vullen */
+#magazines-grid .book img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1.4;  /* Zorgt dat alle covers hetzelfde formaat lijken */
+    object-fit: cover;
+    border-radius: 0;       /* Ronde hoeken regelt de container wel */
+    margin: 0;
+}
+
+/* 4. De tekst container (Meta) */
+#magazines-grid .meta {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;           /* Duwt de inhoud netjes uit elkaar */
+}
+
+/* Mobiele aanpassing (optioneel): op klein scherm toch naar 2 kolommen */
+@media (max-width: 768px) {
+    #magazines-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

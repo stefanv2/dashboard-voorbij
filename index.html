@@ -19,7 +19,7 @@
                     </div>
                     <h1>Dashboard Voorbij</h1>
                     <!-- 📋 Verborgen links (dropdown) -->
-                    <div id="menuLinks" class="menu-links"><a href="https://kavita.voorbij.duckdns.org" target="_blank">📖 Kavita</a><a href="https://calibre.voorbij.duckdns.org" target="_blank">📚 Calibre-Web</a><a href="https://github.com/stefanv2" target="_blank">🧭 Github</a>
+                    <div id="menuLinks" class="menu-links"><a href="https://kavita.voorbij.duckdns.org" target="_blank">📖 Comics</a><a href="https://calibre.voorbij.duckdns.org" target="_blank">📚 Boekjes</a></a><a href="https://blaadjes.voorbij.duckdns.org" target="_blank">🗞️ Blaadjes</a><a href="https://video.voorbij.duckdns.org" target="_blank">🎥 video</a><a href="https://github.com/stefanv2" target="_blank">🧭 Github</a>
                     </div>
                 </div>
             </header>
@@ -80,7 +80,13 @@
                         <!-- 📚📓 TAB BUTTONS -->
                         <div class="tabs">
                             <button class="tab active" data-target="books">📚 Boeken</button>
-                            <div class="tab-with-dice">
+			    <div class="tab-with-dice">
+                                  <button class="tab" data-target="magazines">🗞️ Blaadjes</button>
+                                  <button class="btn" id="btn-random-magazines" style="display:none;" title="Willekeurige blaadjes">
+                                  <i class="fa-solid fa-dice"></i>
+                                  </button>
+				  </div>  
+                           <div class="tab-with-dice">
                                 <button class="tab" data-target="comics">📓 Strips</button>
                                 <button class="btn" id="btn-random-comics"><i class="fa-solid fa-dice"></i>
                                 </button>
@@ -95,8 +101,14 @@
                             </button>
                         </div>
                     </div>
-                    <!-- 📚 BOEKEN GRID (standaard actief) -->
-                    <div id="books" class="tab-content active books-grid"></div>
+                       <!-- 📚 BOEKEN GRID (standaard actief) -->
+                       <div id="books" class="tab-content active books-grid"></div>
+                       <!-- 🗞️ BLAADJES TAB -->
+                       <div id="magazines" class="tab-content" style="display:none;">
+                       <div id="magazines-grid" class="books-grid">
+                           🗞️ Blaadjes worden geladen...
+                      </div>
+                      </div>
                     <!-- 📓 STRIPS TAB (alleen strip covers + dobbelsteen button) -->
                     <div id="comics" class="tab-content" style="display:none;">
                         <div class="comics-toolbar">
@@ -105,7 +117,7 @@
                         </div>
                         <div id="comic-list" class="books-grid">
                             📚 Strip-collectie wordt geladen...
-</div>
+                        </div>
                     </div>
                 </section>
                 <!-- ============= JAVASCRIPT FUNCTIONALITEIT ============= -->
@@ -266,6 +278,7 @@ function loadComics() {
     const BASE = `https://${HOST}`;
     const API_BOMMEL   = `${BASE}/quote`;
     const API_BOOKS    = `${BASE}/slack/api/books`;
+    const API_MAGAZINES = `${BASE}/slack/api/magazines`;
     const API_POSTCODE = `${BASE}/slack/api/postcode`;
 
     // ===== HELPER FUNCTIES =====
@@ -351,6 +364,18 @@ function loadComics() {
       catch { renderBooks([]); }
     }
 
+   async function loadMagazinesRandom() {
+    try {
+        let rows = await safeFetch(API_MAGAZINES);
+        // Husselen
+        rows.sort(() => Math.random() - 0.5);
+        // De renderer pakt automatisch de eerste 4 door de .slice(0,4) die we eerder toevoegden
+        renderMagazines(rows);
+    }   catch (e) {
+        console.error(e);
+    }
+  }   
+
     // ===== POSTCODE + OPENSTREETMAP =====
     function renderPostcodeOk(row) {
       const elRes = document.getElementById('pc-res');
@@ -387,23 +412,30 @@ function loadComics() {
       catch { renderPostcodeBad("Niet gevonden / fout in API."); }
     }
 
-    // ===== EVENT LISTENERS =====
+// ===== EVENT LISTENERS =====
     document.getElementById('btn-new-quote').addEventListener('click', loadQuote);
     document.getElementById('btn-newest').addEventListener('click', loadBooksNewest);
+
+    // 🎲 Dobbelsteen BOEKEN
     document.getElementById('btn-random').addEventListener('click', () => {
-  const icon = document.querySelector('#btn-random i');
+        const icon = document.querySelector('#btn-random i');
+        icon.classList.add('dice-rolling');
+        setTimeout(() => {
+            icon.classList.remove('dice-rolling');
+        }, 500);
+        loadBooksRandom();
+    });
 
-  // Start animatie
-  icon.classList.add('dice-rolling');
+    // 🎲 Dobbelsteen BLAADJES (NIEUW TOEGEVOEGD)
+    document.getElementById('btn-random-magazines').addEventListener('click', () => {
+        const icon = document.querySelector('#btn-random-magazines i');
+        icon.classList.add('dice-rolling');
+        setTimeout(() => {
+            icon.classList.remove('dice-rolling');
+        }, 500);
+        loadMagazinesRandom(); // Zorg dat deze functie bestaat (zie stap 2 vorige antwoord)
+    });
 
-  // Stop animatie na 0.5s
-  setTimeout(() => {
-    icon.classList.remove('dice-rolling');
-  }, 500);
-
-  // Willekeurige boeken laden
-  loadBooksRandom();
-});
     document.getElementById('btn-search').addEventListener('click', searchBooks);
     document.getElementById('btn-zoek').addEventListener('click', doPostcode);
 
@@ -425,23 +457,83 @@ document.querySelectorAll('.tab').forEach(btn => {
     const target = btn.getAttribute('data-target');
     document.getElementById(target).style.display = 'grid';
 
-    // ✅ Haal de strips-dobbelsteen op
+    // ✅ Haal de knoppen op
     const comicDice = document.getElementById('btn-random-comics');
+    const magDice   = document.getElementById('btn-random-magazines'); // <--- 1. DEZE REGEL TOEVOEGEN
     const booksToolbar = document.querySelector('.books-toolbar');
 
+    // Zet eerst alles even op onzichtbaar (reset)
+    comicDice.style.display = 'none';
+    magDice.style.display = 'none';     // <--- 2. DEZE REGEL TOEVOEGEN
+    booksToolbar.style.display = 'none';
+
     if (target === 'comics') {
-      // 🎯 Alleen strips → dobbelsteen zichtbaar en boeken knoppen weg
-      comicDice.style.display = 'inline-flex';
-      booksToolbar.style.display = 'none';
-      loadComics();
-    } else {
-      // 📚 Op boeken-tab → strips-dobbelsteen weg, zoekbalk terug
-      comicDice.style.display = 'none';
-      booksToolbar.style.display = 'flex';
+       comicDice.style.display = 'inline-flex';
+       loadComics();
+    }
+    else if (target === 'magazines') {
+       magDice.style.display = 'inline-flex'; // <--- 3. HIER MAAK JE DE KNOP ZICHTBAAR
+       loadMagazines(); // Je laadt hier nog de 'gewone' blaadjes bij het openen van de tab
+    }
+    else {
+       // Boeken tab
+       booksToolbar.style.display = 'flex';
     }
   });
 });
 
+// ===== BLAADJES (magazines) =====
+function renderMagazines(rows) {
+    const wrap = document.getElementById('magazines-grid');
+    wrap.innerHTML = '';
+
+    if (!rows || rows.length === 0) {
+        wrap.textContent = "Geen blaadjes gevonden.";
+        return;
+    }
+
+    // Hier gebruik je slice(0, 4) om er maar 4 te pakken
+    rows.slice(0, 4).forEach(row => {
+        const card = document.createElement('div');
+        card.className = 'book';
+
+        // Cover
+        const img = document.createElement('img');
+        img.src = row.cover;
+        img.onerror = () => img.src = "/img/no-cover.png";
+
+        // Meta container
+        const meta = document.createElement('div');
+        meta.className = 'meta';
+
+        // Titel
+        const title = document.createElement('h4');
+        title.textContent = row.title;
+
+        // Link
+        const link = document.createElement('a');
+        link.href = row.link;
+        link.target = "_blank";
+        link.textContent = "Open in Calibre-Web";
+
+        meta.appendChild(title);
+        meta.appendChild(link);
+
+        card.appendChild(img);
+        card.appendChild(meta);
+
+        wrap.appendChild(card);
+    }); // <--- HIER SLUIT JE HEM AF
+}
+
+async function loadMagazines() {
+    try {
+        const rows = await safeFetch(API_MAGAZINES);
+        renderMagazines(rows);
+    } catch (e) {
+        document.getElementById('magazines-grid').innerHTML = "❌ Fout bij laden van blaadjes.";
+    }
+}
 
     // ===== INIT =====
     loadQuote();
