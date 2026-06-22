@@ -5,5 +5,14 @@ services:
     ports:
       - "8090:80"
     restart: unless-stopped
+    depends_on:
+      - dashboard-api
     volumes:
-      - ./img:/usr/share/nginx/html/img   # Alleen afbeeldingen mounten
+      - ./img:/usr/share/nginx/html/img:ro
+
+  dashboard-api:
+    container_name: dashboard-api
+    build: ./api
+    restart: unless-stopped
+    env_file:
+      - .env
