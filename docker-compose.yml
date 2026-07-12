@@ -9,6 +9,7 @@ services:
       - dashboard-api
     volumes:
       - ./img:/usr/share/nginx/html/img:ro
+      - ./minecraft-status:/usr/share/nginx/html/minecraft-status:ro
 
   dashboard-api:
     container_name: dashboard-api

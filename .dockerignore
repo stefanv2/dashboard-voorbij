@@ -2,3 +2,21 @@
 .git
 node_modules
 api/node_modules
+
+# Git en lokale configuratie
+.git
+.gitignore
+.env
+.env.*
+!.env.example
+
+# Back-ups en runtimebestanden
+index1.html
+index.html.bak-*
+minecraft-status/*.json
+
+# Lokale scripts en logs
+patch_dashboard_*.py
+*.log
+*.out
+*.err

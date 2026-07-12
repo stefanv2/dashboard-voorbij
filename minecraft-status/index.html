@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Minecraft-status</title>
+<style>
+body{margin:0;background:transparent;font-family:Arial,sans-serif;color:#f3f7f3}
+.card{background:#202821;border:1px solid #344337;border-radius:16px;padding:18px}
+h2{margin:0 0 14px}
+.row{display:grid;grid-template-columns:150px 1fr;gap:12px;padding:9px 0;border-top:1px solid rgba(255,255,255,.08)}
+.row:first-of-type{border-top:0}.label{color:#aeb9b0}.value{font-weight:700}.online{color:#65d46e}.offline{color:#ff7474}.warn{color:#ffcc66}
+.updated{margin-top:12px;color:#aeb9b0;font-size:.8rem;text-align:right}
+@media(max-width:430px){.row{grid-template-columns:1fr;gap:3px}}
+</style>
+</head>
+<body>
+<section class="card" aria-live="polite">
+<h2>⛏ Minecraft-server</h2>
+<div class="row"><div class="label">Status</div><div id="status" class="value">Laden…</div></div>
+<div class="row"><div class="label">Online spelers</div><div id="players" class="value">–</div></div>
+<div class="row"><div class="label">Laatste activiteit</div><div id="activity" class="value">–</div></div>
+<div class="row"><div class="label">Waarschuwingen</div><div id="alerts" class="value">–</div></div>
+<div id="updated" class="updated"></div>
+</section>
+<script>
+async function loadStatus(){
+  const s=document.getElementById('status');
+  try{
+    const r=await fetch('status.json?ts='+Date.now(),{cache:'no-store'});
+    if(!r.ok) throw new Error();
+    const d=await r.json();
+    const online=d.status==='online';
+    s.textContent=online?'Online':'Offline';
+    s.className='value '+(online?'online':'offline');
+    document.getElementById('players').textContent=d.online_players ?? 0;
+    document.getElementById('activity').textContent=d.last_activity || 'Geen recente activiteit';
+    const a=Number(d.alert_count||0), ae=document.getElementById('alerts');
+    ae.textContent=a===0?'Geen':a+' melding'+(a===1?'':'en');
+    ae.className='value '+(a===0?'online':'warn');
+    document.getElementById('updated').textContent=d.updated?'Bijgewerkt: '+d.updated:'';
+  }catch(e){
+    s.textContent='Niet bereikbaar'; s.className='value offline';
+    document.getElementById('activity').textContent='Statusbestand niet bereikbaar';
+    document.getElementById('alerts').textContent='Controle nodig';
+  }
+}
+loadStatus(); setInterval(loadStatus,30000);
+</script>
+</body>
+</html>

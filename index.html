@@ -134,6 +134,296 @@
                     min-width: 0;
                 }
             }
+
+            /* Minecraft Operations v3.1 */
+            .minecraft-card {
+                overflow: hidden;
+                border-color: rgba(91, 108, 255, .22);
+            }
+
+            .minecraft-summary {
+                display: grid;
+                gap: 12px;
+                color: #f5f7ff;
+            }
+
+            .minecraft-topline {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            .minecraft-top-actions {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                flex-wrap: wrap;
+                margin-left: auto;
+            }
+
+            .minecraft-status-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+                padding: 6px 11px;
+                border-radius: 999px;
+                border: 1px solid #2d3150;
+                background: #1b1e2f;
+                font-size: .82rem;
+                font-weight: 750;
+            }
+
+            .minecraft-status-dot {
+                width: 9px;
+                height: 9px;
+                flex: 0 0 9px;
+                border-radius: 50%;
+                background: #7f8a99;
+                box-shadow: 0 0 10px rgba(127, 138, 153, .55);
+            }
+
+            .minecraft-status-badge.online .minecraft-status-dot {
+                background: #28d66f;
+                box-shadow: 0 0 12px rgba(40, 214, 111, .75);
+            }
+
+            .minecraft-status-badge.degraded .minecraft-status-dot,
+            .minecraft-status-badge.stale .minecraft-status-dot {
+                background: #ffb347;
+                box-shadow: 0 0 12px rgba(255, 179, 71, .7);
+            }
+
+            .minecraft-status-badge.offline .minecraft-status-dot {
+                background: #ff6b6b;
+                box-shadow: 0 0 12px rgba(255, 107, 107, .7);
+            }
+
+            .minecraft-status-badge.scheduled .minecraft-status-dot {
+                background: #8e9dff;
+                box-shadow: 0 0 14px rgba(142, 157, 255, .78);
+            }
+
+            .minecraft-closed-panel {
+                display: none;
+                position: relative;
+                overflow: hidden;
+                align-items: center;
+                gap: 16px;
+                min-height: 142px;
+                padding: 20px;
+                border: 1px solid rgba(142, 157, 255, .30);
+                border-radius: 16px;
+                background:
+                    radial-gradient(circle at 92% 12%, rgba(142, 157, 255, .24), transparent 34%),
+                    linear-gradient(135deg, rgba(35, 39, 74, .96), rgba(20, 23, 43, .98));
+                box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
+            }
+
+            .minecraft-closed-panel.visible { display: flex; }
+
+            .minecraft-closed-panel::after {
+                content: "✦  ·  ✧  ·  ✦";
+                position: absolute;
+                top: 14px;
+                right: 18px;
+                color: rgba(255,255,255,.22);
+                font-size: .82rem;
+                letter-spacing: 5px;
+            }
+
+            .minecraft-closed-icon {
+                display: grid;
+                place-items: center;
+                width: 64px;
+                height: 64px;
+                flex: 0 0 64px;
+                border: 1px solid rgba(142, 157, 255, .34);
+                border-radius: 18px;
+                background: rgba(142, 157, 255, .13);
+                color: #c5ccff;
+                font-size: 1.7rem;
+                box-shadow: 0 10px 30px rgba(5, 8, 24, .34);
+            }
+
+            .minecraft-closed-kicker {
+                margin-bottom: 4px;
+                color: #aeb8ff;
+                font-size: .72rem;
+                font-weight: 800;
+                letter-spacing: .12em;
+                text-transform: uppercase;
+            }
+
+            .minecraft-closed-title {
+                color: #fff;
+                font-size: 1.08rem;
+                font-weight: 800;
+            }
+
+            .minecraft-closed-hours {
+                margin-top: 5px;
+                color: #c9d0e4;
+                font-size: .86rem;
+            }
+
+            .minecraft-next-open {
+                display: inline-flex;
+                align-items: center;
+                gap: 7px;
+                margin-top: 12px;
+                padding: 6px 10px;
+                border: 1px solid rgba(40, 214, 111, .20);
+                border-radius: 999px;
+                background: rgba(40, 214, 111, .08);
+                color: #75e6a4;
+                font-size: .78rem;
+                font-weight: 750;
+            }
+
+            .minecraft-card.scheduled-closed .minecraft-grid { display: none; }
+            .minecraft-card.scheduled-closed .minecraft-technical { display: none !important; }
+
+            .minecraft-refresh {
+                min-height: 32px;
+                padding: 5px 10px;
+                font-size: .78rem;
+            }
+
+            .minecraft-refresh.loading i {
+                animation: minecraftSpin .8s linear infinite;
+            }
+
+            @keyframes minecraftSpin {
+                to { transform: rotate(360deg); }
+            }
+
+            .minecraft-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 10px;
+            }
+
+            .minecraft-metric {
+                min-width: 0;
+                min-height: 78px;
+                padding: 12px;
+                border: 1px solid #2d3150;
+                border-radius: 12px;
+                background: #1b1e2f;
+                box-shadow: inset 0 1px 0 rgba(255,255,255,.025);
+            }
+
+            .minecraft-metric.wide {
+                grid-column: 1 / -1;
+            }
+
+            .minecraft-label {
+                margin-bottom: 5px;
+                color: var(--muted, #aeb6c8);
+                font-size: .76rem;
+            }
+
+            .minecraft-value {
+                color: #f5f7ff;
+                font-size: .98rem;
+                font-weight: 750;
+                overflow-wrap: anywhere;
+            }
+
+            .minecraft-subvalue {
+                margin-top: 5px;
+                color: var(--muted, #aeb6c8);
+                font-size: .75rem;
+                overflow-wrap: anywhere;
+            }
+
+            .minecraft-players {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 6px;
+                margin-top: 8px;
+            }
+
+            .minecraft-player {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                padding: 5px 8px;
+                border: 1px solid rgba(91, 108, 255, .28);
+                border-radius: 999px;
+                background: rgba(91, 108, 255, .12);
+                font-size: .8rem;
+            }
+
+            .minecraft-player::before {
+                content: "";
+                width: 7px;
+                height: 7px;
+                flex: 0 0 7px;
+                border-radius: 50%;
+                background: #28d66f;
+                box-shadow: 0 0 8px rgba(40, 214, 111, .7);
+            }
+
+            .minecraft-meter {
+                height: 8px;
+                margin-top: 9px;
+                overflow: hidden;
+                border-radius: 999px;
+                background: rgba(255,255,255,.08);
+            }
+
+            .minecraft-meter span {
+                display: block;
+                width: 0;
+                height: 100%;
+                border-radius: 999px;
+                background: linear-gradient(90deg, #5b6cff, #00d4ff);
+                transition: width .35s ease, background .35s ease;
+            }
+
+            .minecraft-meter span.warn {
+                background: linear-gradient(90deg, #ffb347, #ff8a3d);
+            }
+
+            .minecraft-meter span.bad {
+                background: linear-gradient(90deg, #ff8a65, #ff5252);
+            }
+
+            .minecraft-ok { color: #28d66f; }
+            .minecraft-warn { color: #ffb347; }
+            .minecraft-bad { color: #ff6b6b; }
+
+            .minecraft-updated {
+                color: var(--muted, #aeb6c8);
+                font-size: .74rem;
+                text-align: right;
+            }
+
+            .minecraft-technical {
+                display: none;
+                padding: 9px 11px;
+                border: 1px solid rgba(255, 179, 71, .25);
+                border-radius: 10px;
+                background: rgba(255, 179, 71, .07);
+                color: #ffca80;
+                font-size: .76rem;
+                overflow-wrap: anywhere;
+            }
+
+            .minecraft-technical.visible { display: block; }
+
+            @media (max-width: 760px) {
+                .minecraft-grid { grid-template-columns: 1fr; }
+                .minecraft-metric.wide { grid-column: auto; }
+                .minecraft-top-actions { margin-left: 0; width: 100%; }
+                .minecraft-updated { text-align: left; flex: 1; }
+                .minecraft-closed-panel { align-items: flex-start; }
+                .minecraft-closed-icon { width: 52px; height: 52px; flex-basis: 52px; }
+            }
+
         </style>
     </head>
     <body>
@@ -211,6 +501,89 @@
                             </div>
                         </div>
                     </section>
+
+                    <!-- ⛏ MINECRAFT OPERATIONS -->
+                    <section class="card minecraft-card" aria-labelledby="minecraft-title">
+                        <div class="section-title" id="minecraft-title">
+                            ⛏ Minecraft Operations <span class="tag">live</span>
+                        </div>
+
+                        <div class="minecraft-summary">
+                            <div class="minecraft-topline">
+                                <div id="mc-status-badge" class="minecraft-status-badge">
+                                    <span class="minecraft-status-dot"></span>
+                                    <span id="mc-status-text">Laden…</span>
+                                </div>
+
+                                <div class="minecraft-top-actions">
+                                    <div id="mc-updated" class="minecraft-updated">Nog niet bijgewerkt</div>
+                                    <button class="btn minecraft-refresh" id="mc-refresh" type="button" title="Minecraft-status opnieuw laden">
+                                        <i class="fa-solid fa-rotate"></i> Vernieuwen
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div id="mc-closed-panel" class="minecraft-closed-panel" aria-live="polite">
+                                <div class="minecraft-closed-icon" aria-hidden="true">
+                                    <i class="fa-solid fa-moon"></i>
+                                </div>
+                                <div>
+                                    <div class="minecraft-closed-kicker">Geplande ruststand</div>
+                                    <div id="mc-closed-title" class="minecraft-closed-title">De Minecraft-server slaapt</div>
+                                    <div id="mc-closed-hours" class="minecraft-closed-hours">Dagelijks beschikbaar van 08:00 tot 22:00</div>
+                                    <div id="mc-next-open" class="minecraft-next-open">
+                                        <i class="fa-solid fa-clock"></i> Automatische start om 08:00
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="minecraft-grid">
+                                <div class="minecraft-metric wide">
+                                    <div class="minecraft-label">Serverstatus</div>
+                                    <div id="mc-health" class="minecraft-value">Status wordt opgehaald…</div>
+                                    <div id="mc-version" class="minecraft-subvalue">–</div>
+                                </div>
+
+                                <div class="minecraft-metric">
+                                    <div class="minecraft-label">Online spelers</div>
+                                    <div id="mc-player-count" class="minecraft-value">–</div>
+                                    <div id="mc-player-list" class="minecraft-players"></div>
+                                </div>
+
+                                <div class="minecraft-metric">
+                                    <div class="minecraft-label">Wereld</div>
+                                    <div id="mc-world" class="minecraft-value">–</div>
+                                    <div id="mc-difficulty" class="minecraft-subvalue"></div>
+                                </div>
+
+                                <div class="minecraft-metric">
+                                    <div class="minecraft-label">TPS</div>
+                                    <div id="mc-tps" class="minecraft-value">–</div>
+                                    <div id="mc-uptime" class="minecraft-subvalue"></div>
+                                </div>
+
+                                <div class="minecraft-metric">
+                                    <div class="minecraft-label">Java-proces</div>
+                                    <div id="mc-memory" class="minecraft-value">–</div>
+                                    <div id="mc-cpu" class="minecraft-subvalue"></div>
+                                    <div class="minecraft-meter"><span id="mc-memory-bar"></span></div>
+                                </div>
+
+                                <div class="minecraft-metric wide">
+                                    <div class="minecraft-label">Laatste activiteit</div>
+                                    <div id="mc-activity" class="minecraft-value">–</div>
+                                </div>
+
+                                <div class="minecraft-metric wide">
+                                    <div class="minecraft-label">Veiligheidsmeldingen</div>
+                                    <div id="mc-alerts" class="minecraft-value">–</div>
+                                </div>
+                            </div>
+
+                            <div id="mc-technical" class="minecraft-technical"></div>
+                        </div>
+                    </section>
+
                 </div>
                 <!-- =================== RECHTERKOLOM / BOEKEN & STRIPS =================== -->
                 <section class="card library-card">
@@ -791,12 +1164,425 @@ async function loadMagazines() {
     }
 }
 
-    // ===== INIT =====
+// ===== MINECRAFT OPERATIONS V3.1 =====
+const MC_STATUS_URL = '/minecraft-status/status.json';
+const MC_REFRESH_INTERVAL_MS = 15000;
+const MC_STALE_AFTER_SECONDS = 45;
+let mcLastData = null;
+let mcFetchBusy = false;
+let mcTimer = null;
+let mcAgeTimer = null;
+
+function mcSetText(id, value) {
+  const element = document.getElementById(id);
+  if (element) element.textContent = value;
+}
+
+function mcUpdatedEpoch(data) {
+  if (Number.isFinite(Number(data.updated_epoch))) {
+    return Number(data.updated_epoch);
+  }
+
+  const candidate = data.updated_iso || data.updated;
+  if (!candidate) return null;
+
+  const parsed = Date.parse(candidate);
+  return Number.isFinite(parsed) ? Math.floor(parsed / 1000) : null;
+}
+
+function mcAgeSeconds(data) {
+  const epoch = mcUpdatedEpoch(data);
+  return epoch === null ? null : Math.max(0, Math.floor(Date.now() / 1000 - epoch));
+}
+
+function mcAgeLabel(seconds) {
+  if (seconds === null) return 'tijd onbekend';
+  if (seconds < 5) return 'zojuist';
+  if (seconds < 60) return `${seconds} sec geleden`;
+  const minutes = Math.floor(seconds / 60);
+  if (minutes < 60) return `${minutes} min geleden`;
+  const hours = Math.floor(minutes / 60);
+  return `${hours} uur geleden`;
+}
+
+function mcSetBadge(state, label) {
+  const badge = document.getElementById('mc-status-badge');
+  if (!badge) return;
+
+  badge.classList.remove('online', 'degraded', 'offline', 'stale', 'scheduled');
+  badge.classList.add(state);
+  mcSetText('mc-status-text', label);
+}
+
+function mcRenderPlayers(data) {
+  const online = Number(data.online_players || 0);
+  const maximum = Number(data.max_players || 0);
+  mcSetText('mc-player-count', `${online} / ${maximum} online`);
+
+  const list = document.getElementById('mc-player-list');
+  if (!list) return;
+  list.replaceChildren();
+
+  const players = Array.isArray(data.players) ? data.players : [];
+  if (players.length === 0) {
+    const empty = document.createElement('span');
+    empty.className = 'muted';
+    empty.textContent = 'Niemand online';
+    list.appendChild(empty);
+    return;
+  }
+
+  players.forEach(playerName => {
+    const badge = document.createElement('span');
+    badge.className = 'minecraft-player';
+    badge.textContent = String(playerName);
+    list.appendChild(badge);
+  });
+}
+
+function mcRenderTps(data) {
+  const element = document.getElementById('mc-tps');
+  if (!element) return;
+
+  const tps = typeof data.tps === 'number' ? data.tps : null;
+  element.className = 'minecraft-value';
+
+  if (tps === null) {
+    element.textContent = 'Niet beschikbaar';
+    return;
+  }
+
+  element.textContent = tps.toFixed(2);
+  element.classList.add(tps >= 18 ? 'minecraft-ok' : tps >= 15 ? 'minecraft-warn' : 'minecraft-bad');
+}
+
+function mcRenderMemory(data) {
+  const memory = document.getElementById('mc-memory');
+  const bar = document.getElementById('mc-memory-bar');
+  if (!memory || !bar) return;
+
+  bar.className = '';
+
+  if (typeof data.ram_mb !== 'number') {
+    memory.textContent = 'Niet beschikbaar';
+    bar.style.width = '0%';
+    mcSetText('mc-cpu', data.java_running ? 'CPU onbekend' : 'Java niet actief');
+    return;
+  }
+
+  const limit = Number(data.ram_limit_mb || 4096);
+  const percentage = Number.isFinite(Number(data.ram_percent))
+    ? Number(data.ram_percent)
+    : (data.ram_mb / limit) * 100;
+  const clamped = Math.max(0, Math.min(100, percentage));
+
+  memory.textContent = `${data.ram_mb.toFixed(0)} / ${limit} MB`;
+  bar.style.width = `${clamped}%`;
+  if (clamped >= 90) bar.classList.add('bad');
+  else if (clamped >= 75) bar.classList.add('warn');
+
+  mcSetText(
+    'mc-cpu',
+    typeof data.cpu_percent === 'number'
+      ? `CPU ${data.cpu_percent.toFixed(1)}%`
+      : 'CPU niet beschikbaar'
+  );
+}
+
+function mcRenderWorld(data) {
+  const parts = [];
+  if (Number.isFinite(Number(data.world_day))) parts.push(`Dag ${Number(data.world_day)}`);
+  if (data.day_period) parts.push(String(data.day_period));
+  mcSetText('mc-world', parts.length ? parts.join(' · ') : 'Niet beschikbaar');
+  mcSetText('mc-difficulty', data.difficulty ? `Moeilijkheid: ${data.difficulty}` : '');
+}
+
+function mcRenderAlerts(data) {
+  const element = document.getElementById('mc-alerts');
+  if (!element) return;
+
+  const count = Number(data.alert_count || 0);
+  element.className = 'minecraft-value';
+
+  if (count === 0) {
+    element.textContent = 'Geen';
+    element.classList.add('minecraft-ok');
+  } else {
+    element.textContent = data.alert_summary || `${count} melding(en)`;
+    element.classList.add('minecraft-warn');
+  }
+}
+
+function mcUpdateAge() {
+  if (!mcLastData) return;
+
+  const age = mcAgeSeconds(mcLastData);
+  mcSetText('mc-updated', `Bijgewerkt: ${mcAgeLabel(age)}`);
+
+  if (age !== null && age > MC_STALE_AFTER_SECONDS) {
+    mcSetBadge('stale', 'Status verouderd');
+  }
+}
+
+function mcRenderStatus(data) {
+  mcLastData = data;
+  const age = mcAgeSeconds(data);
+  const stale = age !== null && age > MC_STALE_AFTER_SECONDS;
+  const state = String(data.status || 'offline');
+  const scheduledClosed = Boolean(data.scheduled_closed) || state === 'scheduled_offline';
+
+  const card = document.querySelector('.minecraft-card');
+  const closedPanel = document.getElementById('mc-closed-panel');
+  if (card) card.classList.toggle('scheduled-closed', scheduledClosed);
+  if (closedPanel) closedPanel.classList.toggle('visible', scheduledClosed);
+
+  if (scheduledClosed) {
+    mcSetText('mc-closed-title', 'De Minecraft-server slaapt');
+    mcSetText('mc-closed-hours', data.schedule_text || 'Dagelijks beschikbaar van 08:00 tot 22:00');
+    mcSetText(
+      'mc-next-open',
+      data.next_open_text
+        ? `Automatische start: ${data.next_open_text}`
+        : 'Automatische start om 08:00'
+    );
+  }
+
+  if (stale) mcSetBadge('stale', 'Status verouderd');
+  else if (scheduledClosed) mcSetBadge('scheduled', 'Gepland gesloten');
+  else if (state === 'online') mcSetBadge('online', 'Online');
+  else if (state === 'degraded') mcSetBadge('degraded', 'Beperkt bereikbaar');
+  else mcSetBadge('offline', 'Offline');
+
+  mcSetText('mc-health', data.health_message || 'Geen statusmelding');
+  mcSetText('mc-version', data.version || 'Versie onbekend');
+  mcSetText('mc-uptime', data.uptime ? `Uptime ${data.uptime}` : 'Uptime niet beschikbaar');
+  mcSetText('mc-activity', data.last_activity || 'Geen recente activiteit');
+
+  mcRenderPlayers(data);
+  mcRenderTps(data);
+  mcRenderMemory(data);
+  mcRenderWorld(data);
+  mcRenderAlerts(data);
+  mcUpdateAge();
+
+  const technical = document.getElementById('mc-technical');
+  if (technical) {
+    const message = (!scheduledClosed && data.collector_error)
+      ? `Technisch: ${data.collector_error}`
+      : '';
+    technical.textContent = message;
+    technical.classList.toggle('visible', Boolean(message));
+  }
+}
+
+function mcRenderUnavailable(message) {
+  mcLastData = null;
+  const card = document.querySelector('.minecraft-card');
+  const closedPanel = document.getElementById('mc-closed-panel');
+  if (card) card.classList.remove('scheduled-closed');
+  if (closedPanel) closedPanel.classList.remove('visible');
+  mcSetBadge('offline', 'Niet bereikbaar');
+  mcSetText('mc-health', message || 'Minecraft-status kon niet worden geladen');
+  mcSetText('mc-player-count', '–');
+  mcSetText('mc-player-list', '');
+  mcSetText('mc-world', '–');
+  mcSetText('mc-difficulty', '');
+  mcSetText('mc-tps', '–');
+  mcSetText('mc-uptime', '');
+  mcSetText('mc-memory', '–');
+  mcSetText('mc-cpu', '');
+  mcSetText('mc-activity', 'Geen actuele gegevens');
+  mcSetText('mc-alerts', 'Controle nodig');
+  mcSetText('mc-updated', 'Niet bijgewerkt');
+
+  const bar = document.getElementById('mc-memory-bar');
+  if (bar) bar.style.width = '0%';
+}
+
+async function loadMinecraftStatus() {
+  if (mcFetchBusy) return;
+  mcFetchBusy = true;
+
+  const button = document.getElementById('mc-refresh');
+  if (button) {
+    button.disabled = true;
+    button.classList.add('loading');
+  }
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 6000);
+
+  try {
+    const response = await fetch(`${MC_STATUS_URL}?ts=${Date.now()}`, {
+      cache: 'no-store',
+      signal: controller.signal
+    });
+
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    mcRenderStatus(await response.json());
+  } catch (error) {
+    const message = error && error.name === 'AbortError'
+      ? 'Statusaanvraag duurde te lang'
+      : 'Minecraft-status kon niet worden geladen';
+    mcRenderUnavailable(message);
+  } finally {
+    clearTimeout(timeout);
+    mcFetchBusy = false;
+    if (button) {
+      button.disabled = false;
+      button.classList.remove('loading');
+    }
+  }
+}
+
+function initMinecraftOperations() {
+  const button = document.getElementById('mc-refresh');
+  if (!button) return;
+
+  button.addEventListener('click', loadMinecraftStatus);
+  loadMinecraftStatus();
+
+  if (mcTimer) clearInterval(mcTimer);
+  if (mcAgeTimer) clearInterval(mcAgeTimer);
+  mcTimer = setInterval(loadMinecraftStatus, MC_REFRESH_INTERVAL_MS);
+  mcAgeTimer = setInterval(mcUpdateAge, 1000);
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) loadMinecraftStatus();
+  });
+}
+
+
+
+// ===== INIT =====
     loadQuote();
     showTab('books');
     loadBooksRandom();
+    initMinecraftOperations();
   </script>
             </div>
         </div>
-    </body>
+    
+<!-- VISITOR_DASHBOARD_V1_START -->
+<style>
+.visitor-panel{width:min(1180px,calc(100% - 32px));margin:24px auto 36px;padding:22px;border:1px solid rgba(112,163,255,.20);border-radius:20px;background:radial-gradient(circle at top right,rgba(74,125,255,.13),transparent 38%),linear-gradient(145deg,rgba(12,24,48,.95),rgba(6,15,33,.96));box-shadow:0 20px 55px rgba(0,0,0,.25);color:#edf4ff;box-sizing:border-box}
+.visitor-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}
+.visitor-title-wrap{display:flex;align-items:center;gap:13px}.visitor-eye{display:grid;place-items:center;width:44px;height:44px;flex:0 0 44px;border-radius:14px;background:rgba(64,132,255,.16);border:1px solid rgba(100,159,255,.28);font-size:23px}
+.visitor-panel h2{margin:0 0 4px;font-size:clamp(20px,2.2vw,27px);letter-spacing:-.02em}.visitor-subtitle{margin:0;color:rgba(222,234,255,.65);font-size:13px}
+.visitor-updated{padding:7px 11px;border-radius:999px;white-space:nowrap;background:rgba(64,211,150,.10);border:1px solid rgba(64,211,150,.24);color:#99f2ca;font-size:12px}
+.visitor-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}.visitor-stat{padding:15px;border-radius:15px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.075)}
+.visitor-stat strong{display:block;margin-bottom:3px;color:#fff;font-size:27px;line-height:1.05}.visitor-stat span{color:rgba(222,234,255,.63);font-size:12px}
+.visitor-body{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(250px,.8fr);gap:14px}.visitor-box{padding:16px;border-radius:15px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);min-width:0}
+.visitor-box h3{margin:0 0 12px;color:rgba(238,245,255,.90);font-size:14px}.visitor-list,.visitor-scan{display:grid;gap:8px}.visitor-row{display:grid;grid-template-columns:52px minmax(0,1fr) auto;align-items:center;gap:10px;padding:9px 10px;border-radius:11px;background:rgba(255,255,255,.027)}
+.visitor-time{color:#8fb7ff;font-variant-numeric:tabular-nums;font-size:12px}.visitor-main{min-width:0}.visitor-main strong,.visitor-main small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.visitor-main strong{font-size:13px;color:#eef5ff}.visitor-main small{margin-top:2px;color:rgba(222,234,255,.53);font-size:11px}
+.visitor-chip{padding:5px 8px;border-radius:999px;background:rgba(95,143,255,.10);color:#a9c6ff;font-size:10px;white-space:nowrap}.visitor-scan-line{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 10px;border-radius:11px;background:rgba(255,255,255,.027);font-size:12px}.visitor-scan-ok{color:#93efc4}.visitor-scan-warn{color:#ffd08a}
+.visitor-empty{padding:16px 4px;color:rgba(222,234,255,.55);font-size:13px}.visitor-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;margin-top:13px;color:rgba(222,234,255,.46);font-size:11px}
+@media(max-width:850px){.visitor-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.visitor-body{grid-template-columns:1fr}}
+@media(max-width:520px){.visitor-panel{width:min(100% - 18px,1180px);padding:16px;border-radius:16px}.visitor-updated{display:none}.visitor-row{grid-template-columns:46px minmax(0,1fr)}.visitor-chip{display:none}}
+</style>
+
+<section class="visitor-panel" id="visitor-dashboard" aria-live="polite">
+  <div class="visitor-head">
+    <div class="visitor-title-wrap">
+      <div class="visitor-eye" aria-hidden="true">👀</div>
+      <div>
+        <h2>Wie kijkt er mee?</h2>
+        <p class="visitor-subtitle">Echte bezoeken, los van dashboardverversingen en automatische scanners</p>
+      </div>
+    </div>
+    <div class="visitor-updated" id="visitor-updated">Gegevens laden…</div>
+  </div>
+
+  <div class="visitor-stats">
+    <div class="visitor-stat"><strong id="visitor-external">–</strong><span>Externe bezoeken</span></div>
+    <div class="visitor-stat"><strong id="visitor-unique">–</strong><span>Unieke adressen</span></div>
+    <div class="visitor-stat"><strong id="visitor-bots">–</strong><span>Bots en scanners</span></div>
+    <div class="visitor-stat"><strong id="visitor-blocked">–</strong><span>Geblokkeerde scans</span></div>
+  </div>
+
+  <div class="visitor-body">
+    <div class="visitor-box">
+      <h3>Laatste externe bezoeken</h3>
+      <div class="visitor-list" id="visitor-list"><div class="visitor-empty">Bezoekersgegevens worden voorbereid…</div></div>
+    </div>
+    <div class="visitor-box">
+      <h3>Laatste scanactiviteit</h3>
+      <div class="visitor-scan" id="visitor-scans"><div class="visitor-empty">Nog geen gegevens.</div></div>
+    </div>
+  </div>
+
+  <div class="visitor-foot">
+    <span id="visitor-filtered">Achtergrondverzoeken worden niet als bezoek geteld.</span>
+    <span>IP-adressen gemaskeerd · sessies van 30 minuten</span>
+  </div>
+</section>
+
+<script>
+(() => {
+  const endpoint='/minecraft-status/visitors.json';
+  const id=(value)=>document.getElementById(value);
+  const set=(name,value)=>{const node=id(name);if(node)node.textContent=String(value??'–')};
+  const make=(tag,className,text)=>{const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node};
+
+  function renderVisits(visits){
+    const list=id('visitor-list');if(!list)return;list.replaceChildren();
+    if(!Array.isArray(visits)||visits.length===0){
+      list.append(make('div','visitor-empty','Vandaag is nog geen extern menselijk bezoek herkend.'));return;
+    }
+    visits.slice(0,6).forEach((visit)=>{
+      const row=make('div','visitor-row');
+      row.append(make('div','visitor-time',visit.time||'–'));
+      const main=make('div','visitor-main');
+      main.append(make('strong','',`${visit.masked_ip||'onbekend'} · ${visit.device||'apparaat'}`));
+      main.append(make('small','',`${visit.browser||'browser'} · ${visit.last_page||'/'}`));
+      row.append(main);
+      row.append(make('span','visitor-chip',Number(visit.page_count||1)===1?'1 pagina':`${visit.page_count} pagina’s`));
+      list.append(row);
+    });
+  }
+
+  function renderScans(scans){
+    const box=id('visitor-scans');if(!box)return;box.replaceChildren();
+    if(!Array.isArray(scans)||scans.length===0){
+      box.append(make('div','visitor-empty','Vandaag is nog geen scanactiviteit herkend.'));return;
+    }
+    scans.slice(0,5).forEach((scan)=>{
+      const row=make('div','visitor-scan-line');
+      row.append(make('span','',`${scan.time||'–'} · ${scan.category||'Scan'}`));
+      row.append(make('span',scan.blocked?'visitor-scan-ok':'visitor-scan-warn',scan.blocked?`geblokkeerd (${scan.status})`:`antwoord ${scan.status}`));
+      box.append(row);
+    });
+  }
+
+  function render(data){
+    const summary=data.summary||{};
+    set('visitor-external',summary.external_sessions??0);
+    set('visitor-unique',summary.unique_external_ips??0);
+    set('visitor-bots',summary.bots_scanners_unique??0);
+    set('visitor-blocked',summary.blocked_suspicious_requests??0);
+    set('visitor-updated',`Bijgewerkt ${data.generated_time||'–'}`);
+    set('visitor-filtered',`${summary.background_requests??0} achtergrondverzoeken gefilterd · ${summary.own_sessions??0} eigen sessies apart gehouden`);
+    renderVisits(data.recent_external_visits||[]);
+    renderScans(data.recent_scans||[]);
+  }
+
+  async function load(){
+    try{
+      const response=await fetch(`${endpoint}?ts=${Date.now()}`,{cache:'no-store'});
+      if(!response.ok)throw new Error(`HTTP ${response.status}`);
+      render(await response.json());
+    }catch(error){
+      set('visitor-updated','Geen actuele gegevens');
+      const list=id('visitor-list');
+      if(list)list.replaceChildren(make('div','visitor-empty','De bezoekerscollector heeft nog geen leesbaar overzicht gepubliceerd.'));
+      console.warn('Bezoekersoverzicht kon niet worden geladen:',error);
+    }
+  }
+
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',load,{once:true});else load();
+  window.setInterval(load,60000);
+})();
+</script>
+<!-- VISITOR_DASHBOARD_V1_END -->
+</body>
 </html>

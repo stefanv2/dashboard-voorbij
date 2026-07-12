@@ -27,3 +27,19 @@ Thumbs.db
 
 # Negeer de img-folder
 img/
+
+# Dashboard runtime-data
+/minecraft-status/*.json
+
+# Lokale HTML-back-ups
+/index1.html
+/index.html.bak-*
+
+# Lokale patch- en hulpscripts
+/patch_dashboard_*.py
+/visitor-dashboard/
+
+# Lokale configuratie en geheimen
+.env
+.env.*
+!.env.example
