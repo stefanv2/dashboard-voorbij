@@ -1,29 +1,43 @@
-# Node.js
+# Geheimen
+.env
+.env.*
+!.env.example
+dashboard-api.env
+minecraft-ops.ini
+*.secret
+*.key
+*.pem
+
+# Node
 node_modules/
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
-# Env files
-.env
-.env.local
-.env.*.local
+# Dynamische dashboarddata
+minecraft-status/status.json
+minecraft-status/visitors.json
+status.json
+visitors.json
 
-# Ngrok
-.ngrok2/
-ngrok.yml
+# Back-ups en archieven
+backups/
+*.backup
+*.backup-*
+*.bak
+*.tar
+*.tar.gz
+*.tgz
+*.zip
 
-# Logs
-logs/
+# Logs en tijdelijke bestanden
 *.log
-*.out
-*.err
-
-# OS / Editor files
+*.tmp
 .DS_Store
-Thumbs.db
-.idea/
-.vscode/
+__pycache__/
+*.pyc
 
-# Negeer de img-folder
+# Lokale afbeeldingen en herstelbestanden
 img/
+api/*.backup-*
+api-old-*/
+api-oud-*/
+index1.html

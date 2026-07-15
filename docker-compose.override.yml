@@ -1,0 +1,17 @@
+services:
+  dashboard-api:
+    build:
+      context: ./api
+    image: dashboard-dashboard-api
+    container_name: dashboard-api
+    restart: unless-stopped
+    env_file:
+      - dashboard-api.env
+    networks:
+      - default
+      - navidrome_net
+
+networks:
+  navidrome_net:
+    external: true
+    name: navidrome_default

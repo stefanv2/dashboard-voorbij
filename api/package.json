@@ -1,0 +1,13 @@
+{
+  "name": "dashboard-api",
+  "version": "1.0.0",
+  "description": "API backend voor Dashboard Voorbij",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.3"
+  }
+}

@@ -7,6 +7,205 @@
         <!-- Koppel externe CSS -->
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+        <style>
+            /* Kleine dashboard-polish: gelijke tabs, nette actieknoppen en betere dobbelsteenpositie. */
+            .library-card .dashboard-library-header {
+                align-items: flex-start;
+                gap: 1rem;
+                flex-wrap: wrap;
+            }
+
+            .dashboard-library-header .tabs {
+                display: grid;
+                grid-template-columns: repeat(4, minmax(105px, 1fr));
+                gap: .5rem;
+                flex: 1 1 340px;
+                max-width: 680px;
+            }
+
+            .dashboard-library-header .tab {
+                width: 100%;
+                min-height: 42px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                white-space: nowrap;
+            }
+
+            .library-actions {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                gap: .5rem;
+                flex: 1 1 320px;
+                min-width: 280px;
+            }
+
+            .books-toolbar {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                gap: .5rem;
+                flex-wrap: wrap;
+                width: 100%;
+            }
+
+            .books-toolbar .input,
+            .music-toolbar .input {
+                min-width: 180px;
+            }
+
+            .music-toolbar {
+                display: flex;
+                align-items: center;
+                gap: .5rem;
+                flex-wrap: wrap;
+                margin-bottom: 14px;
+            }
+
+            .tab-dice {
+                width: 42px;
+                height: 42px;
+                min-width: 42px;
+                padding: 0;
+                display: none;
+                align-items: center;
+                justify-content: center;
+                border-radius: 999px;
+            }
+
+            .tab-content {
+                margin-top: 1rem;
+            }
+
+            #books,
+            #magazines-grid,
+            #comic-list,
+            #music-grid {
+                width: 100%;
+            }
+
+            #music-grid .book img {
+                width: 124px;
+                height: 124px;
+                aspect-ratio: 1 / 1;
+                object-fit: cover;
+                border-radius: 10px;
+                display: block;
+                flex-shrink: 0;
+            }
+
+            .dice-rolling {
+                animation: diceRoll .5s ease-in-out;
+                transform-origin: center;
+            }
+
+            @keyframes diceRoll {
+                0% { transform: rotate(0deg) scale(1); }
+                50% { transform: rotate(180deg) scale(1.18); }
+                100% { transform: rotate(360deg) scale(1); }
+            }
+
+            @media (max-width: 760px) {
+                .library-card .dashboard-library-header {
+                    flex-direction: column;
+                    align-items: stretch !important;
+                }
+
+                .dashboard-library-header .tabs {
+                    grid-template-columns: 1fr;
+                    max-width: none;
+                    width: 100%;
+                }
+
+                .library-actions {
+                    justify-content: stretch;
+                    min-width: 0;
+                    width: 100%;
+                }
+
+                .books-toolbar {
+                    justify-content: stretch;
+                }
+
+                .books-toolbar .input,
+                .music-toolbar .input {
+                    flex: 1 1 100%;
+                    min-width: 0;
+                }
+            }
+
+            /* Minecraft Operations v5 */
+            .minecraft-card { overflow: hidden; }
+            .mc-headline { display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:12px; }
+            .mc-status { display:inline-flex;align-items:center;gap:8px;padding:6px 11px;border-radius:999px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.035);font-weight:700; }
+            .mc-status-dot { width:10px;height:10px;border-radius:50%;background:#8b93a7;box-shadow:0 0 10px rgba(139,147,167,.55); }
+            .mc-status.online .mc-status-dot { background:#00e676;box-shadow:0 0 12px rgba(0,230,118,.8); }
+            .mc-status.offline .mc-status-dot,.mc-status.scheduled_offline .mc-status-dot { background:#ff8a3d;box-shadow:0 0 12px rgba(255,138,61,.75); }
+            .mc-status.degraded .mc-status-dot { background:#ffd166;box-shadow:0 0 12px rgba(255,209,102,.75); }
+            .mc-actions { display:flex;align-items:center;gap:10px;flex-wrap:wrap; }
+            .mc-updated { color:var(--muted,#9fa8c7);font-size:.8rem; }
+            .mc-refresh { min-height:38px; }
+            .mc-grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px; }
+            .mc-panel { border:1px solid rgba(255,255,255,.09);background:rgba(255,255,255,.025);border-radius:14px;padding:14px;min-width:0; }
+            .mc-panel.wide { grid-column:1/-1; }
+            .mc-label { color:var(--muted,#9fa8c7);font-size:.8rem;margin-bottom:5px; }
+            .mc-value { font-size:1rem;font-weight:700;overflow-wrap:anywhere; }
+            .mc-subvalue { color:var(--muted,#9fa8c7);font-size:.82rem;margin-top:4px;overflow-wrap:anywhere; }
+            .mc-ok { color:#00e676; }.mc-warn { color:#ffb74d; }.mc-bad { color:#ff6b6b; }
+            .mc-players { display:flex;flex-wrap:wrap;gap:7px;margin-top:9px; }
+            .mc-player { display:inline-flex;align-items:center;gap:7px;padding:5px 9px;border-radius:999px;background:rgba(91,108,255,.12);border:1px solid rgba(91,108,255,.28);font-size:.84rem; }
+            .mc-player::before { content:"";width:8px;height:8px;border-radius:50%;background:#00e676;box-shadow:0 0 8px rgba(0,230,118,.75); }
+            .mc-meter { height:8px;margin-top:9px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden; }
+            .mc-meter span { display:block;width:0;height:100%;border-radius:999px;background:linear-gradient(90deg,#5b6cff,#00d4ff);transition:width .25s ease; }
+            .mc-feed { display:grid;gap:8px;margin-top:4px; }
+            .mc-feed-item { display:grid;grid-template-columns:58px minmax(0,1fr);gap:10px;padding:8px 0;border-top:1px solid rgba(255,255,255,.06); }
+            .mc-feed-item:first-child { border-top:0; }.mc-feed-time { color:var(--muted,#9fa8c7);font-size:.78rem; }.mc-feed-text { font-size:.9rem;overflow-wrap:anywhere; }
+
+            /* Bezoekersdashboard: volledig onderdeel van het hoofdgrid */
+            .dashboard-wide { grid-column:1/-1; }
+            .visitor-card { overflow:hidden; }
+            .visitor-head { display:flex;align-items:flex-start;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:18px; }
+            .visitor-title-wrap { display:flex;align-items:center;gap:13px;min-width:0; }
+            .visitor-eye { display:grid;place-items:center;width:46px;height:46px;flex:0 0 46px;border-radius:14px;background:rgba(64,132,255,.16);border:1px solid rgba(100,159,255,.28);font-size:24px; }
+            .visitor-heading { margin:0 0 4px;font-size:clamp(1.25rem,2.4vw,1.75rem);line-height:1.15; }
+            .visitor-subtitle { margin:0;color:var(--muted,#9fa8c7);font-size:.88rem;max-width:720px; }
+            .visitor-updated { padding:7px 11px;border-radius:999px;white-space:nowrap;background:rgba(64,211,150,.10);border:1px solid rgba(64,211,150,.24);color:#99f2ca;font-size:.78rem; }
+            .visitor-stats { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px; }
+            .visitor-stat { padding:16px;border-radius:15px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.075);min-width:0; }
+            .visitor-stat strong { display:block;margin-bottom:5px;color:#fff;font-size:1.8rem;line-height:1; }
+            .visitor-stat span { color:var(--muted,#9fa8c7);font-size:.84rem;line-height:1.35; }
+            .visitor-body { display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.85fr);gap:14px; }
+            .visitor-box { padding:16px;border-radius:15px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);min-width:0; }
+            .visitor-box h3 { margin:0 0 12px;font-size:1rem; }
+            .visitor-list,.visitor-scan { display:grid;gap:8px; }
+            .visitor-row { display:grid;grid-template-columns:58px minmax(0,1fr) auto;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;background:rgba(255,255,255,.03); }
+            .visitor-time { color:#8fb7ff;font-variant-numeric:tabular-nums;font-size:.8rem; }
+            .visitor-main { min-width:0; }.visitor-main strong,.visitor-main small { display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap; }
+            .visitor-main strong { font-size:.9rem; }.visitor-main small { margin-top:3px;color:var(--muted,#9fa8c7);font-size:.78rem; }
+            .visitor-chip { padding:5px 8px;border-radius:999px;background:rgba(95,143,255,.12);color:#a9c6ff;font-size:.72rem;white-space:nowrap; }
+            .visitor-scan-line { display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;background:rgba(255,255,255,.03);font-size:.86rem; }
+            .visitor-scan-ok { color:#93efc4; }.visitor-scan-warn { color:#ffd08a; }
+            .visitor-empty { padding:18px 4px;color:var(--muted,#9fa8c7);font-size:.9rem; }
+            .visitor-foot { display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;margin-top:14px;color:var(--muted,#9fa8c7);font-size:.78rem; }
+
+            @media (max-width:900px) {
+                .visitor-stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+                .visitor-body { grid-template-columns:1fr; }
+            }
+            @media (max-width:760px) {
+                .mc-grid { grid-template-columns:1fr; }
+                .mc-panel.wide { grid-column:auto; }
+            }
+            @media (max-width:520px) {
+                .visitor-stats { grid-template-columns:repeat(2,minmax(0,1fr));gap:9px; }
+                .visitor-stat { padding:13px; }.visitor-stat strong { font-size:1.55rem; }
+                .visitor-row { grid-template-columns:48px minmax(0,1fr);gap:9px; }
+                .visitor-chip { grid-column:2;justify-self:start; }
+                .visitor-scan-line { grid-template-columns:1fr;gap:5px; }
+            }
+
+        </style>
     </head>
     <body>
         <div class="container">
@@ -19,7 +218,13 @@
                     </div>
                     <h1>Dashboard Voorbij</h1>
                     <!-- 📋 Verborgen links (dropdown) -->
-                    <div id="menuLinks" class="menu-links"><a href="https://kavita.voorbij.duckdns.org" target="_blank" rel="noopener noreferrer">📖 Comics</a><a href="https://calibre.voorbij.duckdns.org" target="_blank" rel="noopener noreferrer">📚 Boekjes</a></a><a href="https://blaadjes.voorbij.duckdns.org" target="_blank" rel="noopener noreferrer">🗞️ Blaadjes</a><a href="https://video.voorbij.duckdns.org" target="_blank" rel="noopener noreferrer">🎥 video</a><a href="https://github.com/stefanv2" target="_blank" rel="noopener noreferrer">🧭 Github</a><a href="https://muziek.voorbij.duckdns.org" target="_blank" rel="noopener noreferrer">🎶 Muziek</a>
+                    <div id="menuLinks" class="menu-links">
+                        <a href="https://kavita.voorbij.duckdns.org" target="_blank" rel="noopener noreferrer">📖 Comics</a>
+                        <a href="https://calibre.voorbij.duckdns.org" target="_blank" rel="noopener noreferrer">📚 Boekjes</a>
+                        <a href="https://blaadjes.voorbij.duckdns.org" target="_blank" rel="noopener noreferrer">🗞️ Blaadjes</a>
+                        <a href="https://video.voorbij.duckdns.org" target="_blank" rel="noopener noreferrer">🎥 Video</a>
+                        <a href="https://github.com/stefanv2" target="_blank" rel="noopener noreferrer">🧭 Github</a>
+                        <a href="https://muziek.voorbij.duckdns.org" target="_blank" rel="noopener noreferrer">🎶 Muziek</a>
                     </div>
                 </div>
             </header>
@@ -68,57 +273,123 @@
                                 <span id="status-kavita" class="lamp"></span>
                             </div>
                             <div class="status-item">
+                                <span class="status-label">🎶 Muziek pagina:</span>
+                                <span id="status-music" class="lamp"></span>
+                            </div>
+                            <div class="status-item">
                                 <span class="status-label">🧑‍💻 Stefan:</span>
                                 <span id="status-stefan" class="lamp stefan"></span>
                             </div>
                         </div>
                     </section>
+
+                    <!-- ⛏ MINECRAFT OPERATIONS -->
+                    <section class="card minecraft-card">
+                        <div class="section-title">⛏ Minecraft Operations <span class="tag">live</span></div>
+                        <div class="mc-headline">
+                            <div id="mc-status" class="mc-status"><span class="mc-status-dot"></span><span id="mc-status-text">Laden…</span></div>
+                            <div class="mc-actions"><span id="mc-updated" class="mc-updated"></span><button class="btn alt mc-refresh" id="mc-refresh" type="button"><i class="fa-solid fa-rotate"></i> Vernieuwen</button></div>
+                        </div>
+                        <div class="mc-grid">
+                            <div class="mc-panel wide"><div class="mc-label">Serverstatus</div><div id="mc-health" class="mc-value">Laden…</div><div id="mc-version" class="mc-subvalue"></div></div>
+                            <div class="mc-panel"><div class="mc-label">Online spelers</div><div id="mc-player-count" class="mc-value">–</div><div id="mc-players" class="mc-players"></div></div>
+                            <div class="mc-panel"><div class="mc-label">Wereld</div><div id="mc-world" class="mc-value">–</div><div id="mc-difficulty" class="mc-subvalue"></div></div>
+                            <div class="mc-panel"><div class="mc-label">TPS</div><div id="mc-tps" class="mc-value">–</div><div id="mc-uptime" class="mc-subvalue"></div></div>
+                            <div class="mc-panel"><div class="mc-label">Java-proces</div><div id="mc-memory" class="mc-value">–</div><div id="mc-cpu" class="mc-subvalue"></div><div class="mc-meter"><span id="mc-memory-bar"></span></div></div>
+                            <div class="mc-panel"><div class="mc-label">Openingstijden</div><div id="mc-schedule" class="mc-value">–</div><div id="mc-next-open" class="mc-subvalue"></div></div>
+                            <div class="mc-panel"><div class="mc-label">Opslag wereld</div><div id="mc-disk" class="mc-value">–</div><div id="mc-disk-extra" class="mc-subvalue"></div><div class="mc-meter"><span id="mc-disk-bar"></span></div></div>
+                            <div class="mc-panel"><div class="mc-label">Laatste back-up</div><div id="mc-backup" class="mc-value">–</div><div id="mc-backup-extra" class="mc-subvalue"></div></div>
+                            <div class="mc-panel"><div class="mc-label">Server gestart</div><div id="mc-started" class="mc-value">–</div><div id="mc-started-extra" class="mc-subvalue"></div></div>
+                            <div class="mc-panel wide"><div class="mc-label">Laatste activiteit</div><div id="mc-activity" class="mc-value">–</div></div>
+                            <div class="mc-panel wide"><div class="mc-label">Activiteitenfeed</div><div id="mc-feed" class="mc-feed"><div class="mc-feed-item"><div class="mc-feed-time">–</div><div class="mc-feed-text">Nog geen activiteiten geladen</div></div></div></div>
+                            <div class="mc-panel wide"><div class="mc-label">Veiligheidsmeldingen</div><div id="mc-alerts" class="mc-value">–</div></div>
+                        </div>
+                    </section>
                 </div>
                 <!-- =================== RECHTERKOLOM / BOEKEN & STRIPS =================== -->
-                <section class="card">
-                    <div class="section-title" style="justify-content: space-between">
+                <section class="card library-card">
+                    <div class="section-title dashboard-library-header">
                         <!-- 📚📓 TAB BUTTONS -->
-                        <div class="tabs">
-                            <button class="tab active" data-target="books">📚 Boeken</button>
-			    <div class="tab-with-dice">
-                                  <button class="tab" data-target="magazines">🗞️ Blaadjes</button>
-                                  <button class="btn" id="btn-random-magazines" style="display:none;" title="Willekeurige blaadjes">
-                                  <i class="fa-solid fa-dice"></i>
-                                  </button>
-				  </div>  
-                           <div class="tab-with-dice">
-                                <button class="tab" data-target="comics">📓 Strips</button>
-                                <button class="btn" id="btn-random-comics"><i class="fa-solid fa-dice"></i>
+                        <div class="tabs" role="tablist" aria-label="Mediabibliotheek">
+                            <button class="tab active" data-target="books" role="tab" aria-selected="true">📚 Boeken</button>
+                            <button class="tab" data-target="magazines" role="tab" aria-selected="false">🗞️ Blaadjes</button>
+                            <button class="tab" data-target="comics" role="tab" aria-selected="false">📓 Strips</button>
+                            <button class="tab" data-target="music" role="tab" aria-selected="false">🎶 Muziek</button>
+                        </div>
+
+                        <!-- Acties wisselen mee met de actieve tab -->
+                        <div class="library-actions">
+                            <div class="books-toolbar" id="books-toolbar">
+                                <input class="input" id="book-q" placeholder="Zoek titel / auteur">
+                                <button class="btn" id="btn-search">Zoek</button>
+                                <button class="btn alt" id="btn-newest">Nieuw</button>
+                                <button class="btn tab-dice" id="btn-random" title="Willekeurig boek">
+                                    <i class="fa-solid fa-dice"></i>
                                 </button>
                             </div>
-                        </div>
-                        <!-- 🔍 Zoekbalk + knoppen voor boeken -->
-                        <div class="books-toolbar">
-                            <input class="input" id="book-q" placeholder="Zoek titel / auteur">
-                            <button class="btn" id="btn-search">Zoek</button>
-                            <button class="btn alt" id="btn-newest">Nieuw</button>
-                            <button class="btn" id="btn-random" title="Willekeurig boek"><i class="fa-solid fa-dice"></i>
+
+                            <button class="btn tab-dice" id="btn-random-magazines" title="Willekeurige blaadjes">
+                                <i class="fa-solid fa-dice"></i>
+                            </button>
+                            <button class="btn tab-dice" id="btn-random-comics" title="Willekeurige strips">
+                                <i class="fa-solid fa-dice"></i>
+                            </button>
+                            <button class="btn tab-dice" id="btn-random-music" title="Willekeurige muziek">
+                                <i class="fa-solid fa-dice"></i>
                             </button>
                         </div>
                     </div>
-                       <!-- 📚 BOEKEN GRID (standaard actief) -->
-                       <div id="books" class="tab-content active books-grid"></div>
-                       <!-- 🗞️ BLAADJES TAB -->
-                       <div id="magazines" class="tab-content" style="display:none;">
-                       <div id="magazines-grid" class="books-grid">
-                           🗞️ Blaadjes worden geladen...
-                      </div>
-                      </div>
-                    <!-- 📓 STRIPS TAB (alleen strip covers + dobbelsteen button) -->
-                    <div id="comics" class="tab-content" style="display:none;">
-                        <div class="comics-toolbar">
-                            <button class="btn" id="btn-random-comics-toolbar" style="display:none;" title="Willekeurige strips"><i class="fa-solid fa-dice"></i>
-                            </button>
+
+                    <!-- 📚 BOEKEN GRID (standaard actief) -->
+                    <div id="books" class="tab-content active books-grid"></div>
+
+                    <!-- 🗞️ BLAADJES TAB -->
+                    <div id="magazines" class="tab-content" style="display:none;">
+                        <div id="magazines-grid" class="books-grid">
+                            🗞️ Blaadjes worden geladen...
                         </div>
+                    </div>
+
+                    <!-- 📓 STRIPS TAB -->
+                    <div id="comics" class="tab-content" style="display:none;">
                         <div id="comic-list" class="books-grid">
                             📚 Strip-collectie wordt geladen...
                         </div>
                     </div>
+
+                    <!-- 🎶 MUZIEK TAB -->
+                    <div id="music" class="tab-content" style="display:none;">
+                        <div class="music-toolbar">
+                            <input class="input" id="music-q" placeholder="Zoek artiest / album / nummer">
+                            <button class="btn" id="btn-music-search">Zoek</button>
+                            <button class="btn alt" id="btn-music-favorites">Favorieten</button>
+                        </div>
+                        <div id="music-grid" class="books-grid">
+                            🎶 Muziek wordt geladen...
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 👀 BEZOEKERSDASHBOARD -->
+                <section class="card visitor-card dashboard-wide" id="visitor-dashboard" aria-live="polite">
+                    <div class="visitor-head">
+                        <div class="visitor-title-wrap">
+                            <div class="visitor-eye" aria-hidden="true">👀</div>
+                            <div><h2 class="visitor-heading">Wie kijkt er mee?</h2><p class="visitor-subtitle">Echte bezoeken, los van dashboardverversingen en automatische scanners.</p></div>
+                        </div>
+                        <div class="visitor-updated" id="visitor-updated">Gegevens laden…</div>
+                    </div>
+                    <div class="visitor-stats">
+                        <div class="visitor-stat"><strong id="visitor-external">–</strong><span>Externe bezoeken</span></div>
+                        <div class="visitor-stat"><strong id="visitor-unique">–</strong><span>Unieke adressen</span></div>
+                        <div class="visitor-stat"><strong id="visitor-bots">–</strong><span>Bots en scanners</span></div>
+                        <div class="visitor-stat"><strong id="visitor-blocked">–</strong><span>Geblokkeerde scans</span></div>
+                    </div>
+                    <div class="visitor-body">
+                        <div class="visitor-box"><h3>Laatste externe bezoeken</h3><div class="visitor-list" id="visitor-list"><div class="visitor-empty">Bezoekersgegevens worden voorbereid…</div></div></div>
+                        <div class="visitor-box"><h3>Laatste scanactiviteit</h3><div class="visitor-scan" id="visitor-scans"><div class="visitor-empty">Nog geen gegevens.</div></div></div>
+                    </div>
+                    <div class="visitor-foot"><span id="visitor-filtered">Achtergrondverzoeken worden niet als bezoek geteld.</span><span>IP-adressen gemaskeerd · sessies van 30 minuten</span></div>
                 </section>
                 <!-- ============= JAVASCRIPT FUNCTIONALITEIT ============= -->
                 <script>
@@ -199,6 +470,30 @@ function pingService(fullUrl, lampId) {
     img.src = `${fullUrl}${separator}cb=${Date.now()}`;
 }
 
+// 🌐 API STATUS CHECK - VOOR MUZIEK / BACKEND API
+async function pingApiService(url, lampId) {
+    const lamp = document.getElementById(lampId);
+    if (!lamp) return;
+
+    try {
+        const res = await fetch(url, { cache: "no-store" });
+
+        if (!res.ok) {
+            throw new Error(`HTTP ${res.status}`);
+        }
+
+        await res.json();
+
+        lamp.classList.remove("offline");
+        lamp.classList.add("online");
+        console.log(`✅ API OK: ${lampId}`);
+    } catch (e) {
+        lamp.classList.remove("online");
+        lamp.classList.add("offline");
+        console.warn(`❌ API FOUT: ${lampId}`, e.message);
+    }
+}
+
 // 🌐 CONFIGURATIE EN HERHALING
 window.addEventListener("load", () => {
     
@@ -218,6 +513,9 @@ window.addEventListener("load", () => {
 
     const runChecks = () => {
         checkList.forEach(item => pingService(item.url, item.id));
+
+        // 🎶 Muziekstatus via eigen dashboard-api
+        pingApiService("/api/music?query=favorites", "status-music");
     };
 
     // Eerste check bij laden
@@ -227,17 +525,6 @@ window.addEventListener("load", () => {
     setInterval(runChecks, 60000);
 });
 
-// 🎲 Animatie voor strips-dobbelsteen
-document.getElementById('btn-random-comics').addEventListener('click', () => {
-  const icon = document.querySelector('#btn-random-comics i');
-  icon.classList.add('dice-rolling');
-  setTimeout(() => {
-    icon.classList.remove('dice-rolling');
-  }, 500);
-
-  loadComics(); // opnieuw willekeurige strips tonen
-});
-				
 // 📌 Strips tonen ZONDER backend — alleen lokale PNG's
 function loadComics() {
   const container = document.getElementById('comic-list');
@@ -275,11 +562,12 @@ function loadComics() {
 	
     // ===== API ENDPOINTS =====
     const HOST = window.location.hostname;
-    const BASE = `https://${HOST}`;
+    const BASE = window.location.origin || `https://${HOST}`;
     const API_BOMMEL   = `${BASE}/quote`;
     const API_BOOKS    = `${BASE}/slack/api/books`;
     const API_MAGAZINES = `${BASE}/slack/api/magazines`;
     const API_POSTCODE = `${BASE}/slack/api/postcode`;
+    const API_MUSIC    = `${BASE}/api/music`;
 
     // ===== HELPER FUNCTIES =====
     async function safeFetch(url) {
@@ -369,6 +657,81 @@ function loadComics() {
       catch { renderBooks([]); }
     }
 
+
+    // ===== MUZIEK =====
+    function renderMusic(rows) {
+      const wrap = document.getElementById('music-grid');
+      wrap.innerHTML = '';
+
+      if (!rows || rows.length === 0) {
+        wrap.textContent = "Geen muziek gevonden.";
+        return;
+      }
+
+      rows.slice(0, 8).forEach(row => {
+        const card = el('div', 'book');
+
+        const img = el('img');
+        img.src = row.cover || '/img/no-cover.png';
+        img.onerror = () => { img.src = '/img/no-cover.png'; };
+
+        const meta = el('div', 'meta');
+
+        const title = el('h4');
+        title.textContent = row.title || "Onbekende titel";
+
+        const artist = el('div', 'author');
+        artist.textContent = row.artist || "Onbekende artiest";
+
+        const album = el('div', 'desc');
+        const albumText = row.album || "";
+        const durationText = row.duration || "";
+        album.textContent = [albumText, durationText].filter(Boolean).join(" • ");
+
+        const link = el('a', 'a');
+        link.href = row.link || 'https://muziek.voorbij.duckdns.org';
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = "Open in Navidrome";
+
+        meta.appendChild(title);
+        meta.appendChild(artist);
+        meta.appendChild(album);
+        meta.appendChild(link);
+
+        card.appendChild(img);
+        card.appendChild(meta);
+        wrap.appendChild(card);
+      });
+    }
+
+    async function loadMusicFavorites() {
+      try { renderMusic(await safeFetch(`${API_MUSIC}?query=favorites`)); }
+      catch (e) {
+        console.error(e);
+        document.getElementById('music-grid').textContent = "❌ Fout bij laden van favorieten.";
+      }
+    }
+
+    async function loadMusicRandom() {
+      try { renderMusic(await safeFetch(`${API_MUSIC}?query=random`)); }
+      catch (e) {
+        console.error(e);
+        document.getElementById('music-grid').textContent = "❌ Fout bij laden van willekeurige muziek.";
+      }
+    }
+
+    async function searchMusic() {
+      const q = document.getElementById('music-q').value.trim();
+      if (!q) return loadMusicFavorites();
+
+      try { renderMusic(await safeFetch(`${API_MUSIC}?query=${encodeURIComponent(q)}`)); }
+      catch (e) {
+        console.error(e);
+        document.getElementById('music-grid').textContent = "❌ Fout bij zoeken in muziek.";
+      }
+    }
+
    async function loadMagazinesRandom() {
     try {
         let rows = await safeFetch(API_MAGAZINES);
@@ -424,74 +787,69 @@ function loadComics() {
     }
 
 // ===== EVENT LISTENERS =====
+    function rollDice(buttonId, callback) {
+      const icon = document.querySelector(`#${buttonId} i`);
+      if (icon) {
+        icon.classList.add('dice-rolling');
+        setTimeout(() => icon.classList.remove('dice-rolling'), 500);
+      }
+      callback();
+    }
+
     document.getElementById('btn-new-quote').addEventListener('click', loadQuote);
     document.getElementById('btn-newest').addEventListener('click', loadBooksNewest);
-
-    // 🎲 Dobbelsteen BOEKEN
-    document.getElementById('btn-random').addEventListener('click', () => {
-        const icon = document.querySelector('#btn-random i');
-        icon.classList.add('dice-rolling');
-        setTimeout(() => {
-            icon.classList.remove('dice-rolling');
-        }, 500);
-        loadBooksRandom();
-    });
-
-    // 🎲 Dobbelsteen BLAADJES (NIEUW TOEGEVOEGD)
-    document.getElementById('btn-random-magazines').addEventListener('click', () => {
-        const icon = document.querySelector('#btn-random-magazines i');
-        icon.classList.add('dice-rolling');
-        setTimeout(() => {
-            icon.classList.remove('dice-rolling');
-        }, 500);
-        loadMagazinesRandom(); // Zorg dat deze functie bestaat (zie stap 2 vorige antwoord)
-    });
-
+    document.getElementById('btn-random').addEventListener('click', () => rollDice('btn-random', loadBooksRandom));
+    document.getElementById('btn-random-magazines').addEventListener('click', () => rollDice('btn-random-magazines', loadMagazinesRandom));
+    document.getElementById('btn-random-comics').addEventListener('click', () => rollDice('btn-random-comics', loadComics));
+    document.getElementById('btn-random-music').addEventListener('click', () => rollDice('btn-random-music', loadMusicRandom));
     document.getElementById('btn-search').addEventListener('click', searchBooks);
     document.getElementById('btn-zoek').addEventListener('click', doPostcode);
+    document.getElementById('btn-music-search').addEventListener('click', searchMusic);
+    document.getElementById('btn-music-favorites').addEventListener('click', loadMusicFavorites);
 
     // ENTER-keys
     document.getElementById('book-q').addEventListener('keydown', e => e.key === 'Enter' && searchBooks());
+    document.getElementById('music-q').addEventListener('keydown', e => e.key === 'Enter' && searchMusic());
     document.getElementById('pc').addEventListener('keydown', e => e.key === 'Enter' && doPostcode());
     document.getElementById('hnr').addEventListener('keydown', e => e.key === 'Enter' && doPostcode());
 
-// 📚📓 Tabs functionaliteit + strips dobbelsteen
-document.querySelectorAll('.tab').forEach(btn => {
-  btn.addEventListener('click', () => {
-    // Active tab styling
-    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    // 📚📓 Tabs functionaliteit
+    function showTab(target) {
+      document.querySelectorAll('.tab').forEach(tab => {
+        const isActive = tab.dataset.target === target;
+        tab.classList.toggle('active', isActive);
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      });
 
-    // Verberg alle content
-    document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
+      document.querySelectorAll('.tab-content').forEach(content => {
+        content.classList.remove('active');
+        content.style.display = 'none';
+      });
 
-    const target = btn.getAttribute('data-target');
-    document.getElementById(target).style.display = 'grid';
+      const content = document.getElementById(target);
+      content.classList.add('active');
+      content.style.display = target === 'books' ? 'grid' : 'block';
 
-    // ✅ Haal de knoppen op
-    const comicDice = document.getElementById('btn-random-comics');
-    const magDice   = document.getElementById('btn-random-magazines'); // <--- 1. DEZE REGEL TOEVOEGEN
-    const booksToolbar = document.querySelector('.books-toolbar');
+      const booksToolbar = document.getElementById('books-toolbar');
+      const bookDice = document.getElementById('btn-random');
+      const magDice = document.getElementById('btn-random-magazines');
+      const comicDice = document.getElementById('btn-random-comics');
+      const musicDice = document.getElementById('btn-random-music');
 
-    // Zet eerst alles even op onzichtbaar (reset)
-    comicDice.style.display = 'none';
-    magDice.style.display = 'none';     // <--- 2. DEZE REGEL TOEVOEGEN
-    booksToolbar.style.display = 'none';
+      booksToolbar.style.display = target === 'books' ? 'flex' : 'none';
+      bookDice.style.display = target === 'books' ? 'inline-flex' : 'none';
+      magDice.style.display = target === 'magazines' ? 'inline-flex' : 'none';
+      comicDice.style.display = target === 'comics' ? 'inline-flex' : 'none';
+      musicDice.style.display = target === 'music' ? 'inline-flex' : 'none';
 
-    if (target === 'comics') {
-       comicDice.style.display = 'inline-flex';
-       loadComics();
+      if (target === 'magazines') loadMagazines();
+      if (target === 'comics') loadComics();
+      if (target === 'music') loadMusicFavorites();
     }
-    else if (target === 'magazines') {
-       magDice.style.display = 'inline-flex'; // <--- 3. HIER MAAK JE DE KNOP ZICHTBAAR
-       loadMagazines(); // Je laadt hier nog de 'gewone' blaadjes bij het openen van de tab
-    }
-    else {
-       // Boeken tab
-       booksToolbar.style.display = 'flex';
-    }
-  });
-});
+
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => showTab(tab.dataset.target));
+    });
 
 // ===== BLAADJES (magazines) =====
 function renderMagazines(rows) {
@@ -549,9 +907,69 @@ async function loadMagazines() {
     }
 }
 
+
+// ===== MINECRAFT OPERATIONS =====
+function mcFormatAge(epochSeconds) {
+  if (!epochSeconds) return '';
+  const seconds = Math.max(0, Math.floor(Date.now() / 1000 - epochSeconds));
+  if (seconds < 60) return `${seconds} sec geleden`;
+  if (seconds < 3600) return `${Math.floor(seconds / 60)} min geleden`;
+  return `${Math.floor(seconds / 3600)} uur geleden`;
+}
+function mcShortVersion(version) {
+  if (!version) return 'Paper/Minecraft';
+  const match = version.match(/Paper\s+([0-9.]+)(?:-[^\s]+)?/i);
+  return match ? `Paper ${match[1]}` : version;
+}
+function mcSetText(id, text) { const node=document.getElementById(id); if(node) node.textContent=text ?? ''; }
+async function loadMinecraftStatus() {
+  const statusElement=document.getElementById('mc-status'); const statusText=document.getElementById('mc-status-text');
+  if(!statusElement||!statusText) return;
+  try {
+    const response=await fetch(`/minecraft-status/status.json?ts=${Date.now()}`,{cache:'no-store'});
+    if(!response.ok) throw new Error(`HTTP ${response.status}`);
+    const data=await response.json(); const status=data.status||'offline';
+    statusElement.className=`mc-status ${status}`;
+    statusText.textContent=status==='online'?'Online':status==='scheduled_offline'?'Gesloten':status==='degraded'?'Deels bereikbaar':'Offline';
+    mcSetText('mc-updated',data.updated_epoch?`Bijgewerkt: ${mcFormatAge(data.updated_epoch)}`:'');
+    mcSetText('mc-health',data.health_message||'Onbekende status'); mcSetText('mc-version',mcShortVersion(data.version));
+    const online=Number(data.online_players||0),maximum=Number(data.max_players||0); mcSetText('mc-player-count',`${online} / ${maximum} online`);
+    const playersNode=document.getElementById('mc-players'); playersNode.replaceChildren(); const players=Array.isArray(data.players)?data.players:[];
+    if(!players.length){const empty=document.createElement('span');empty.className='muted';empty.textContent='Niemand online';playersNode.appendChild(empty);}else{players.forEach(name=>{const badge=document.createElement('span');badge.className='mc-player';badge.textContent=name;playersNode.appendChild(badge);});}
+    const day=data.world_day??'–',period=data.day_period?` · ${data.day_period}`:''; mcSetText('mc-world',day==='–'?'Niet beschikbaar':`Dag ${day}${period}`); mcSetText('mc-difficulty',data.difficulty?`Moeilijkheid: ${data.difficulty}`:'');
+    const tpsNode=document.getElementById('mc-tps'); if(typeof data.tps==='number'){tpsNode.textContent=data.tps.toFixed(2);tpsNode.className=`mc-value ${data.tps>=18?'mc-ok':data.tps>=15?'mc-warn':'mc-bad'}`;}else{tpsNode.textContent='Niet beschikbaar';tpsNode.className='mc-value';}
+    mcSetText('mc-uptime',data.uptime?`Uptime ${data.uptime}`:'');
+    if(typeof data.ram_mb==='number'){const limit=Number(data.ram_limit_mb||4096),percent=Math.min(100,Number(data.ram_percent??(data.ram_mb/limit*100)));mcSetText('mc-memory',`${data.ram_mb.toFixed(0)} / ${limit} MB`);mcSetText('mc-cpu',typeof data.cpu_percent==='number'?`CPU ${data.cpu_percent.toFixed(1)}%`:'');document.getElementById('mc-memory-bar').style.width=`${percent}%`;}else{mcSetText('mc-memory','Niet beschikbaar');mcSetText('mc-cpu','');document.getElementById('mc-memory-bar').style.width='0';}
+    mcSetText('mc-schedule',data.schedule_text||'Geen schema'); mcSetText('mc-next-open',status==='scheduled_offline'?`Opent: ${data.next_open_text||'onbekend'}`:`Open tot ${String(data.schedule_close_hour??21).padStart(2,'0')}:00`);
+    if(typeof data.disk_used_percent==='number'){mcSetText('mc-disk',`${data.disk_used_percent.toFixed(1)}% gebruikt`);mcSetText('mc-disk-extra',`${data.disk_free_gb} GB vrij`);document.getElementById('mc-disk-bar').style.width=`${Math.min(100,data.disk_used_percent)}%`;}else{mcSetText('mc-disk','Niet beschikbaar');mcSetText('mc-disk-extra','');document.getElementById('mc-disk-bar').style.width='0';}
+    mcSetText('mc-backup',data.backup_status||'Niet ingesteld'); mcSetText('mc-backup-extra',data.backup_age_text||''); mcSetText('mc-started',data.started_at_text||'Niet beschikbaar'); mcSetText('mc-started-extra',data.uptime?`Draait ${data.uptime}`:''); mcSetText('mc-activity',data.last_activity||'Nog geen recente activiteit');
+    const feed=document.getElementById('mc-feed'); feed.replaceChildren(); const events=Array.isArray(data.recent_events)?data.recent_events:[];
+    if(!events.length){const row=document.createElement('div');row.className='mc-feed-item';row.innerHTML='<div class="mc-feed-time">–</div><div class="mc-feed-text">Nog geen recente activiteiten</div>';feed.appendChild(row);}else{events.forEach(event=>{const row=document.createElement('div');row.className='mc-feed-item';const when=document.createElement('div');when.className='mc-feed-time';when.textContent=event.time||'–';const text=document.createElement('div');text.className='mc-feed-text';text.textContent=event.text||'';row.append(when,text);feed.appendChild(row);});}
+    const alerts=document.getElementById('mc-alerts'),count=Number(data.alert_count||0);alerts.textContent=count===0?'Geen':(data.alert_summary||`${count} melding(en)`);alerts.className=`mc-value ${count===0?'mc-ok':'mc-warn'}`;
+  } catch(error) { statusElement.className='mc-status offline';statusText.textContent='Niet bereikbaar';mcSetText('mc-health','Statusbestand kon niet worden gelezen');mcSetText('mc-updated',''); }
+}
+document.getElementById('mc-refresh')?.addEventListener('click',loadMinecraftStatus);
+
+// ===== BEZOEKERSDASHBOARD =====
+const visitorEndpoint='/minecraft-status/visitors.json';
+function visitorNode(id){return document.getElementById(id);}
+function visitorSet(id,value){const node=visitorNode(id);if(node)node.textContent=String(value??'–');}
+function visitorMake(tag,className,text){const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node;}
+function renderVisitorVisits(visits){const list=visitorNode('visitor-list');if(!list)return;list.replaceChildren();if(!Array.isArray(visits)||!visits.length){list.append(visitorMake('div','visitor-empty','Vandaag is nog geen extern menselijk bezoek herkend.'));return;}visits.slice(0,8).forEach(visit=>{const row=visitorMake('div','visitor-row');row.append(visitorMake('div','visitor-time',visit.time||'–'));const main=visitorMake('div','visitor-main');main.append(visitorMake('strong','',`${visit.masked_ip||'onbekend'} · ${visit.device||'apparaat'}`));main.append(visitorMake('small','',`${visit.browser||'browser'} · ${visit.last_page||'/'}`));row.append(main);row.append(visitorMake('span','visitor-chip',Number(visit.page_count||1)===1?'1 pagina':`${visit.page_count} pagina’s`));list.append(row);});}
+function renderVisitorScans(scans){const box=visitorNode('visitor-scans');if(!box)return;box.replaceChildren();if(!Array.isArray(scans)||!scans.length){box.append(visitorMake('div','visitor-empty','Vandaag is nog geen scanactiviteit herkend.'));return;}scans.slice(0,8).forEach(scan=>{const row=visitorMake('div','visitor-scan-line');row.append(visitorMake('span','',`${scan.time||'–'} · ${scan.category||'Scan'}`));row.append(visitorMake('span',scan.blocked?'visitor-scan-ok':'visitor-scan-warn',scan.blocked?`geblokkeerd (${scan.status})`:`antwoord ${scan.status}`));box.append(row);});}
+async function loadVisitorDashboard(){try{const response=await fetch(`${visitorEndpoint}?ts=${Date.now()}`,{cache:'no-store'});if(!response.ok)throw new Error(`HTTP ${response.status}`);const data=await response.json(),summary=data.summary||{};visitorSet('visitor-external',summary.external_sessions??0);visitorSet('visitor-unique',summary.unique_external_ips??0);visitorSet('visitor-bots',summary.bots_scanners_unique??0);visitorSet('visitor-blocked',summary.blocked_suspicious_requests??0);visitorSet('visitor-updated',`Bijgewerkt ${data.generated_time||'–'}`);visitorSet('visitor-filtered',`${summary.background_requests??0} achtergrondverzoeken gefilterd · ${summary.own_sessions??0} eigen sessies apart gehouden`);renderVisitorVisits(data.recent_external_visits||[]);renderVisitorScans(data.recent_scans||[]);}catch(error){visitorSet('visitor-updated','Geen actuele gegevens');const list=visitorNode('visitor-list');if(list)list.replaceChildren(visitorMake('div','visitor-empty','De bezoekerscollector heeft nog geen leesbaar overzicht gepubliceerd.'));console.warn('Bezoekersoverzicht kon niet worden geladen:',error);}}
+
+
     // ===== INIT =====
     loadQuote();
+    showTab('books');
     loadBooksRandom();
+    loadMinecraftStatus();
+    loadVisitorDashboard();
+    setInterval(loadMinecraftStatus, 15000);
+    setInterval(loadVisitorDashboard, 60000);
   </script>
+            </div>
+        </div>
     </body>
 </html>

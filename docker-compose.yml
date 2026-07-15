@@ -7,3 +7,5 @@ services:
     restart: unless-stopped
     volumes:
       - ./img:/usr/share/nginx/html/img   # Alleen afbeeldingen mounten
+      - ./minecraft-status:/usr/share/nginx/html/minecraft-status:ro
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
