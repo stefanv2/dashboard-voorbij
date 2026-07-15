@@ -425,7 +425,16 @@
             }
 
         </style>
-    </head>
+    <style>
+
+</style>
+<style>
+/* MINECRAFT OPERATIONS V4 EXTRA START */
+.minecraft-title-icon{width:34px;height:34px;object-fit:contain;margin-left:8px;filter:drop-shadow(0 5px 8px rgba(0,0,0,.32));transform:translateY(1px)}
+.minecraft-extra-grid{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:14px}.minecraft-top-list{display:grid;gap:10px;margin-top:10px}.minecraft-top-row{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:9px}.minecraft-rank{display:grid;place-items:center;width:27px;height:27px;border-radius:9px;background:rgba(125,103,255,.13);color:#c9c2ff;font-weight:800;font-size:12px}.minecraft-top-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#fff;font-weight:700}.minecraft-top-name.online::after{content:"";display:inline-block;width:7px;height:7px;margin-left:7px;border-radius:50%;background:#16e98b;box-shadow:0 0 8px rgba(22,233,139,.8)}.minecraft-top-time{color:#9ba9dd;font-size:12px;white-space:nowrap}.minecraft-world-list{display:grid;gap:8px;margin-top:10px}.minecraft-world-line{display:flex;justify-content:space-between;gap:14px;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,.06);color:#aeb8e4;font-size:13px}.minecraft-world-line:last-child{border-bottom:0;padding-bottom:0}.minecraft-world-line strong{color:#fff;font-weight:700;text-align:right}@media(max-width:620px){.minecraft-extra-grid{grid-template-columns:1fr}.minecraft-title-icon{width:30px;height:30px}}
+/* MINECRAFT OPERATIONS V4 EXTRA END */
+</style>
+</head>
     <body>
         <div class="container">
             <!-- HEADER -->
@@ -468,7 +477,7 @@
                     <!-- 🧭 POSTCODE -->
                     <section class="card">
                         <div class="section-title">
-                            🧭 Adres / Postcode <span class="tag">KTB</span>
+                            🧭 Adres / Postcode <span class="tag">Hot</span>
                         </div>
                         <div class="postcode-grid">
                             <input class="input" id="pc" placeholder="Postcode (bv. 2014SL)">
@@ -505,7 +514,7 @@
                     <!-- ⛏ MINECRAFT OPERATIONS -->
                     <section class="card minecraft-card" aria-labelledby="minecraft-title">
                         <div class="section-title" id="minecraft-title">
-                            ⛏ Minecraft Operations <span class="tag">live</span>
+                            ⛏ Minecraft Operations <span class="tag">live</span> <img class="minecraft-title-icon" src="/img/grasblok.png" alt="Minecraft grasblok">
                         </div>
 
                         <div class="minecraft-summary">
@@ -569,7 +578,14 @@
                                     <div class="minecraft-meter"><span id="mc-memory-bar"></span></div>
                                 </div>
 
-                                <div class="minecraft-metric wide">
+                                
+<!-- MINECRAFT OPERATIONS V4 EXTRA START -->
+<div class="minecraft-extra-grid" id="mc-extra-grid">
+  <div class="minecraft-metric"><div class="minecraft-label">Top spelers</div><div class="minecraft-top-list" id="mc-top-players"><div class="minecraft-subvalue">Speeltijd wordt opgebouwd…</div></div></div>
+  <div class="minecraft-metric"><div class="minecraft-label">Wereldinformatie</div><div class="minecraft-value" id="mc-world-size">–</div><div class="minecraft-world-list" id="mc-world-info"><div class="minecraft-subvalue">Wereldgegevens worden geladen…</div></div></div>
+</div>
+<!-- MINECRAFT OPERATIONS V4 EXTRA END -->
+<div class="minecraft-metric wide">
                                     <div class="minecraft-label">Laatste activiteit</div>
                                     <div id="mc-activity" class="minecraft-value">–</div>
                                 </div>
@@ -801,7 +817,7 @@ function loadComics() {
   // Schud de lijst en pak de eerste 4
   const randomCovers = covers
     .sort(() => Math.random() - 0.5)
-    .slice(0, 6);
+    .slice(0, 10);
 
   randomCovers.forEach(file => {
     const src = `/img/comic_covers/${file}`;
@@ -857,7 +873,7 @@ function loadComics() {
         wrap.textContent = "Geen boeken gevonden.";
         return;
       }
-      rows.slice(0, 4).forEach(row => {
+      rows.slice(0, 8).forEach(row => {
         const card = el('div', 'book');
         const img = el('img');
         img.src = row.cover || '/img/no-cover.png';
@@ -1119,7 +1135,7 @@ function renderMagazines(rows) {
     }
 
     // Hier gebruik je slice(0, 4) om er maar 4 te pakken
-    rows.slice(0, 4).forEach(row => {
+    rows.slice(0, 12).forEach(row => {
         const card = document.createElement('div');
         card.className = 'book';
 
@@ -1357,6 +1373,7 @@ function mcRenderStatus(data) {
   mcSetText('mc-version', data.version || 'Versie onbekend');
   mcSetText('mc-uptime', data.uptime ? `Uptime ${data.uptime}` : 'Uptime niet beschikbaar');
   mcSetText('mc-activity', data.last_activity || 'Geen recente activiteit');
+  mcRenderOperationsV4(data);
 
   mcRenderPlayers(data);
   mcRenderTps(data);
@@ -1459,7 +1476,15 @@ function initMinecraftOperations() {
     showTab('books');
     loadBooksRandom();
     initMinecraftOperations();
-  </script>
+  
+
+
+// MINECRAFT OPERATIONS V4 EXTRA START
+function mcRenderTopPlayers(players){const wrap=document.getElementById('mc-top-players');if(!wrap)return;wrap.replaceChildren();if(!Array.isArray(players)||players.length===0){const e=document.createElement('div');e.className='minecraft-subvalue';e.textContent='Nog geen speeltijd geregistreerd';wrap.appendChild(e);return}players.slice(0,5).forEach((p,i)=>{const row=document.createElement('div');row.className='minecraft-top-row';const rank=document.createElement('span');rank.className='minecraft-rank';rank.textContent=String(i+1);const name=document.createElement('span');name.className=`minecraft-top-name${p.online?' online':''}`;name.textContent=p.name||'Onbekend';const time=document.createElement('span');time.className='minecraft-top-time';time.textContent=p.playtime||'0m';row.append(rank,name,time);wrap.appendChild(row)})}
+function mcRenderWorldInfo(info){const size=document.getElementById('mc-world-size'),wrap=document.getElementById('mc-world-info');if(!size||!wrap)return;size.textContent=info?.total_size||'Niet beschikbaar';wrap.replaceChildren();const rows=[['Dimensies',Array.isArray(info?.dimensions)?info.dimensions.length:0],['Regiobestanden',info?.region_files??'–'],['Bekende spelers',info?.known_players??'–']];if(Array.isArray(info?.dimensions))info.dimensions.slice(0,3).forEach(d=>rows.push([d.name||d.directory,d.size||'–']));rows.forEach(([l,v])=>{const row=document.createElement('div');row.className='minecraft-world-line';const a=document.createElement('span');a.textContent=String(l);const b=document.createElement('strong');b.textContent=String(v);row.append(a,b);wrap.appendChild(row)})}
+function mcRenderOperationsV4(data){mcRenderTopPlayers(data?.top_players||[]);mcRenderWorldInfo(data?.world_info||{})}
+// MINECRAFT OPERATIONS V4 EXTRA END
+</script>
             </div>
         </div>
     
