@@ -43,3 +43,9 @@ img/
 .env
 .env.*
 !.env.example
+
+# Lokale back-ups
+/backup/
+
+# Eenmalige patch- en conversiescripts
+/patch_*.py

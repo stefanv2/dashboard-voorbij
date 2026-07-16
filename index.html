@@ -426,13 +426,321 @@
 
         </style>
     <style>
-
-</style>
-<style>
 /* MINECRAFT OPERATIONS V4 EXTRA START */
 .minecraft-title-icon{width:34px;height:34px;object-fit:contain;margin-left:8px;filter:drop-shadow(0 5px 8px rgba(0,0,0,.32));transform:translateY(1px)}
 .minecraft-extra-grid{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:14px}.minecraft-top-list{display:grid;gap:10px;margin-top:10px}.minecraft-top-row{display:grid;grid-template-columns:28px minmax(0,1fr) auto;align-items:center;gap:9px}.minecraft-rank{display:grid;place-items:center;width:27px;height:27px;border-radius:9px;background:rgba(125,103,255,.13);color:#c9c2ff;font-weight:800;font-size:12px}.minecraft-top-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#fff;font-weight:700}.minecraft-top-name.online::after{content:"";display:inline-block;width:7px;height:7px;margin-left:7px;border-radius:50%;background:#16e98b;box-shadow:0 0 8px rgba(22,233,139,.8)}.minecraft-top-time{color:#9ba9dd;font-size:12px;white-space:nowrap}.minecraft-world-list{display:grid;gap:8px;margin-top:10px}.minecraft-world-line{display:flex;justify-content:space-between;gap:14px;padding-bottom:7px;border-bottom:1px solid rgba(255,255,255,.06);color:#aeb8e4;font-size:13px}.minecraft-world-line:last-child{border-bottom:0;padding-bottom:0}.minecraft-world-line strong{color:#fff;font-weight:700;text-align:right}@media(max-width:620px){.minecraft-extra-grid{grid-template-columns:1fr}.minecraft-title-icon{width:30px;height:30px}}
 /* MINECRAFT OPERATIONS V4 EXTRA END */
+</style>
+<style>
+/* Minecraft Steve-easter-egg */
+.minecraft-title-icon {
+  cursor: pointer;
+  transition: transform .18s ease, filter .18s ease;
+  user-select: none;
+}
+
+.minecraft-title-icon:hover,
+.minecraft-title-icon:focus-visible {
+  transform: translateY(-2px) scale(1.08);
+  filter: drop-shadow(0 0 10px rgba(93, 255, 130, .65));
+  outline: none;
+}
+
+.minecraft-steve-popup {
+  position: fixed;
+  right: 28px;
+  bottom: -290px;
+  width: min(190px, 42vw);
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0;
+  transform-origin: bottom center;
+}
+
+.minecraft-steve-popup.show {
+  animation: steveAppear 3.8s ease-in-out forwards;
+}
+
+.minecraft-steve-popup img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 14px 18px rgba(0, 0, 0, .55));
+}
+
+.minecraft-particle {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  z-index: 9998;
+  pointer-events: none;
+  border: 2px solid #5c3a1d;
+  background: #8b5a2b;
+  box-shadow: inset 0 0 0 2px rgba(255,255,255,.08);
+  animation: minecraftParticle .9s ease-out forwards;
+}
+
+@keyframes steveAppear {
+  0% {
+    bottom: -290px;
+    opacity: 0;
+    transform: rotate(-4deg) scale(.94);
+  }
+  18% {
+    bottom: 18px;
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+  28% { transform: rotate(-6deg) scale(1); }
+  38% { transform: rotate(5deg) scale(1); }
+  48% { transform: rotate(-5deg) scale(1); }
+  58% { transform: rotate(3deg) scale(1); }
+  78% {
+    bottom: 18px;
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+  100% {
+    bottom: -290px;
+    opacity: 0;
+    transform: rotate(3deg) scale(.96);
+  }
+}
+
+@keyframes minecraftParticle {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--x), var(--y)) rotate(250deg) scale(.55);
+  }
+}
+
+@media (max-width: 620px) {
+  .minecraft-steve-popup {
+    right: 12px;
+    width: min(155px, 45vw);
+  }
+}
+
+
+/* Uitgebreide Minecraft-easter-eggs */
+.minecraft-steve-speech {
+  position: fixed;
+  right: 210px;
+  bottom: 176px;
+  max-width: min(290px, 68vw);
+  z-index: 10000;
+  padding: 13px 17px;
+  border: 3px solid #101010;
+  border-radius: 18px;
+  background: #fff;
+  color: #111;
+  font-family: "Varela Round", Inter, system-ui, sans-serif;
+  font-size: clamp(15px, 2vw, 21px);
+  font-weight: 900;
+  line-height: 1.15;
+  text-align: center;
+  box-shadow: 0 10px 24px rgba(0,0,0,.42);
+  opacity: 0;
+  transform: scale(.55) rotate(-3deg);
+  transform-origin: right bottom;
+  pointer-events: none;
+}
+
+.minecraft-steve-speech::after {
+  content: "";
+  position: absolute;
+  right: -18px;
+  bottom: 24px;
+  width: 24px;
+  height: 24px;
+  border-right: 3px solid #101010;
+  border-bottom: 3px solid #101010;
+  background: inherit;
+  transform: rotate(-45deg);
+}
+
+.minecraft-steve-speech.show {
+  animation: steveSpeech 2.65s ease-in-out forwards;
+}
+
+.minecraft-steve-speech.rare {
+  border-color: #8a6400;
+  background: #fff4a8;
+  box-shadow: 0 0 0 4px rgba(255,220,80,.28), 0 12px 28px rgba(0,0,0,.46);
+}
+
+.minecraft-steve-speech.danger {
+  border-color: #1c5e25;
+  background: #b9ffb7;
+  color: #09220d;
+}
+
+.minecraft-steve-speech.dark {
+  border-color: #ddd;
+  background: #090909;
+  color: #fff;
+  letter-spacing: .08em;
+}
+
+.minecraft-item-pop {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 1.28em;
+  animation: minecraftItemBounce .7s ease-in-out infinite alternate;
+}
+
+.minecraft-screen-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  pointer-events: none;
+  opacity: 0;
+}
+
+.minecraft-screen-flash.creeper {
+  background: rgba(44,255,76,.48);
+  animation: minecraftFlash .55s ease-out forwards;
+}
+
+.minecraft-screen-flash.herobrine {
+  background: rgba(255,255,255,.72);
+  animation: minecraftFlash .26s ease-out forwards;
+}
+
+.minecraft-herobrine {
+  position: fixed;
+  right: 36px;
+  bottom: 16px;
+  width: min(190px, 42vw);
+  z-index: 10001;
+  opacity: 0;
+  pointer-events: none;
+  filter: grayscale(1) contrast(1.35) brightness(.75);
+}
+
+.minecraft-herobrine.show {
+  animation: herobrineBlink .34s linear forwards;
+}
+
+.minecraft-herobrine img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.minecraft-herobrine-eyes {
+  position: absolute;
+  left: 42%;
+  top: 19%;
+  width: 23%;
+  height: 6%;
+  display: flex;
+  justify-content: space-between;
+  filter: drop-shadow(0 0 7px #fff);
+}
+
+.minecraft-herobrine-eyes::before,
+.minecraft-herobrine-eyes::after {
+  content: "";
+  width: 38%;
+  height: 100%;
+  background: #fff;
+  box-shadow: 0 0 10px #fff;
+}
+
+.minecraft-achievement {
+  position: fixed;
+  top: 22px;
+  left: 50%;
+  z-index: 10002;
+  width: min(360px, calc(100vw - 30px));
+  padding: 12px 15px;
+  border: 2px solid #6a6a6a;
+  border-radius: 7px;
+  background: linear-gradient(#2c2c2c, #111);
+  color: #fff;
+  box-shadow: 0 12px 30px rgba(0,0,0,.5);
+  opacity: 0;
+  transform: translate(-50%, -28px);
+  pointer-events: none;
+}
+
+.minecraft-achievement.show {
+  animation: achievementToast 3.6s ease-in-out forwards;
+}
+
+.minecraft-achievement strong,
+.minecraft-achievement span {
+  display: block;
+}
+
+.minecraft-achievement strong {
+  color: #f8da59;
+  font-size: 13px;
+}
+
+.minecraft-achievement span {
+  margin-top: 3px;
+  font-size: 14px;
+}
+
+@keyframes steveSpeech {
+  0%, 14% { opacity: 0; transform: scale(.55) rotate(-3deg); }
+  27%, 78% { opacity: 1; transform: scale(1) rotate(0deg); }
+  100% { opacity: 0; transform: scale(.82) rotate(2deg); }
+}
+
+@keyframes minecraftItemBounce {
+  from { transform: translateY(0) rotate(-5deg); }
+  to { transform: translateY(-5px) rotate(5deg); }
+}
+
+@keyframes minecraftFlash {
+  0% { opacity: 0; }
+  30% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes herobrineBlink {
+  0%, 15% { opacity: 0; }
+  25%, 75% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes achievementToast {
+  0%, 100% { opacity: 0; transform: translate(-50%, -28px); }
+  12%, 82% { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@media (max-width: 620px) {
+  .minecraft-steve-speech {
+    right: 126px;
+    bottom: 144px;
+    max-width: 58vw;
+  }
+  .minecraft-herobrine {
+    right: 12px;
+    width: min(155px, 45vw);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .minecraft-title-icon,
+  .minecraft-steve-popup,
+  .minecraft-particle {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .minecraft-steve-popup.show {
+    bottom: 18px;
+    opacity: 1;
+  }
+}
 </style>
 </head>
     <body>
@@ -514,7 +822,7 @@
                     <!-- ⛏ MINECRAFT OPERATIONS -->
                     <section class="card minecraft-card" aria-labelledby="minecraft-title">
                         <div class="section-title" id="minecraft-title">
-                            ⛏ Minecraft Operations <span class="tag">live</span> <img class="minecraft-title-icon" src="/img/grasblok.png" alt="Minecraft grasblok">
+                            ⛏ Minecraft Operations <span class="tag">live</span> <img class="minecraft-title-icon" src="/img/grasblok.png" alt="Klik voor Steve" role="button" tabindex="0" title="Klik voor een verrassing">
                         </div>
 
                         <div class="minecraft-summary">
@@ -1488,56 +1796,70 @@ function mcRenderOperationsV4(data){mcRenderTopPlayers(data?.top_players||[]);mc
             </div>
         </div>
     
-<!-- VISITOR_DASHBOARD_V1_START -->
+<!-- WEBSITE_OPERATIONS_V2_START -->
 <style>
-.visitor-panel{width:min(1180px,calc(100% - 32px));margin:24px auto 36px;padding:22px;border:1px solid rgba(112,163,255,.20);border-radius:20px;background:radial-gradient(circle at top right,rgba(74,125,255,.13),transparent 38%),linear-gradient(145deg,rgba(12,24,48,.95),rgba(6,15,33,.96));box-shadow:0 20px 55px rgba(0,0,0,.25);color:#edf4ff;box-sizing:border-box}
-.visitor-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}
-.visitor-title-wrap{display:flex;align-items:center;gap:13px}.visitor-eye{display:grid;place-items:center;width:44px;height:44px;flex:0 0 44px;border-radius:14px;background:rgba(64,132,255,.16);border:1px solid rgba(100,159,255,.28);font-size:23px}
-.visitor-panel h2{margin:0 0 4px;font-size:clamp(20px,2.2vw,27px);letter-spacing:-.02em}.visitor-subtitle{margin:0;color:rgba(222,234,255,.65);font-size:13px}
-.visitor-updated{padding:7px 11px;border-radius:999px;white-space:nowrap;background:rgba(64,211,150,.10);border:1px solid rgba(64,211,150,.24);color:#99f2ca;font-size:12px}
-.visitor-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}.visitor-stat{padding:15px;border-radius:15px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.075)}
-.visitor-stat strong{display:block;margin-bottom:3px;color:#fff;font-size:27px;line-height:1.05}.visitor-stat span{color:rgba(222,234,255,.63);font-size:12px}
-.visitor-body{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(250px,.8fr);gap:14px}.visitor-box{padding:16px;border-radius:15px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);min-width:0}
-.visitor-box h3{margin:0 0 12px;color:rgba(238,245,255,.90);font-size:14px}.visitor-list,.visitor-scan{display:grid;gap:8px}.visitor-row{display:grid;grid-template-columns:52px minmax(0,1fr) auto;align-items:center;gap:10px;padding:9px 10px;border-radius:11px;background:rgba(255,255,255,.027)}
-.visitor-time{color:#8fb7ff;font-variant-numeric:tabular-nums;font-size:12px}.visitor-main{min-width:0}.visitor-main strong,.visitor-main small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.visitor-main strong{font-size:13px;color:#eef5ff}.visitor-main small{margin-top:2px;color:rgba(222,234,255,.53);font-size:11px}
-.visitor-chip{padding:5px 8px;border-radius:999px;background:rgba(95,143,255,.10);color:#a9c6ff;font-size:10px;white-space:nowrap}.visitor-scan-line{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 10px;border-radius:11px;background:rgba(255,255,255,.027);font-size:12px}.visitor-scan-ok{color:#93efc4}.visitor-scan-warn{color:#ffd08a}
-.visitor-empty{padding:16px 4px;color:rgba(222,234,255,.55);font-size:13px}.visitor-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;margin-top:13px;color:rgba(222,234,255,.46);font-size:11px}
-@media(max-width:850px){.visitor-stats{grid-template-columns:repeat(2,minmax(0,1fr))}.visitor-body{grid-template-columns:1fr}}
-@media(max-width:520px){.visitor-panel{width:min(100% - 18px,1180px);padding:16px;border-radius:16px}.visitor-updated{display:none}.visitor-row{grid-template-columns:46px minmax(0,1fr)}.visitor-chip{display:none}}
+.webops-panel{width:min(1180px,calc(100% - 32px));margin:24px auto 36px;padding:22px;border:1px solid rgba(112,163,255,.20);border-radius:20px;background:radial-gradient(circle at top right,rgba(74,125,255,.13),transparent 38%),linear-gradient(145deg,rgba(12,24,48,.95),rgba(6,15,33,.96));box-shadow:0 20px 55px rgba(0,0,0,.25);color:#edf4ff;box-sizing:border-box}
+.webops-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}
+.webops-title-wrap{display:flex;align-items:center;gap:13px}.webops-icon{display:grid;place-items:center;width:44px;height:44px;flex:0 0 44px;border-radius:14px;background:rgba(64,132,255,.16);border:1px solid rgba(100,159,255,.28);font-size:22px}
+.webops-panel h2{margin:0 0 4px;font-size:clamp(20px,2.2vw,27px);letter-spacing:-.02em}.webops-subtitle{margin:0;color:rgba(222,234,255,.65);font-size:13px}
+.webops-updated{padding:7px 11px;border-radius:999px;white-space:nowrap;background:rgba(64,211,150,.10);border:1px solid rgba(64,211,150,.24);color:#99f2ca;font-size:12px}
+.webops-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}.webops-stat{padding:15px;border-radius:15px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.075)}
+.webops-stat strong{display:block;margin-bottom:3px;color:#fff;font-size:27px;line-height:1.05}.webops-stat span{color:rgba(222,234,255,.63);font-size:12px}
+.webops-body{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.65fr);gap:14px}.webops-box{padding:16px;border-radius:15px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);min-width:0}
+.webops-box h3{margin:0 0 12px;color:rgba(238,245,255,.90);font-size:14px}
+.webops-sites{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.webops-site{display:grid;grid-template-columns:32px minmax(0,1fr) auto;align-items:center;gap:9px;padding:10px;border-radius:12px;background:rgba(255,255,255,.028);border:1px solid rgba(255,255,255,.055)}
+.webops-site-icon{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:rgba(95,143,255,.10);font-size:16px}
+.webops-site-main{min-width:0}.webops-site-main strong,.webops-site-main small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.webops-site-main strong{color:#f2f6ff;font-size:12px}.webops-site-main small{margin-top:2px;color:rgba(222,234,255,.48);font-size:10px}
+.webops-site-count{text-align:right}.webops-site-count strong{display:block;color:#fff;font-size:17px}.webops-site-count span{color:rgba(222,234,255,.48);font-size:9px}
+.webops-rank{display:grid;gap:8px}.webops-rank-row{display:grid;grid-template-columns:25px minmax(0,1fr) auto;align-items:center;gap:8px;padding:9px 10px;border-radius:11px;background:rgba(255,255,255,.027)}
+.webops-rank-no{display:grid;place-items:center;width:24px;height:24px;border-radius:8px;background:rgba(125,103,255,.14);color:#c9c2ff;font-size:11px;font-weight:800}
+.webops-rank-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#eef5ff;font-size:12px}.webops-rank-value{color:#9fc1ff;font-size:11px;white-space:nowrap}
+.webops-visits{display:grid;gap:8px;margin-top:14px}.webops-visit{display:grid;grid-template-columns:48px minmax(0,1fr) auto;gap:9px;align-items:center;padding:9px 10px;border-radius:11px;background:rgba(255,255,255,.027)}
+.webops-time{color:#8fb7ff;font-variant-numeric:tabular-nums;font-size:11px}.webops-visit-main{min-width:0}.webops-visit-main strong,.webops-visit-main small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.webops-visit-main strong{font-size:12px}.webops-visit-main small{margin-top:2px;color:rgba(222,234,255,.50);font-size:10px}
+.webops-chip{padding:4px 7px;border-radius:999px;background:rgba(95,143,255,.10);color:#a9c6ff;font-size:9px;white-space:nowrap}
+.webops-foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 16px;margin-top:13px;color:rgba(222,234,255,.46);font-size:11px}
+.webops-empty{padding:14px 4px;color:rgba(222,234,255,.55);font-size:12px}
+@media(max-width:900px){.webops-body{grid-template-columns:1fr}.webops-sites{grid-template-columns:1fr 1fr}}
+@media(max-width:620px){.webops-panel{width:min(100% - 18px,1180px);padding:16px}.webops-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.webops-sites{grid-template-columns:1fr}.webops-updated{display:none}.webops-visit{grid-template-columns:42px minmax(0,1fr)}.webops-chip{display:none}}
 </style>
 
-<section class="visitor-panel" id="visitor-dashboard" aria-live="polite">
-  <div class="visitor-head">
-    <div class="visitor-title-wrap">
-      <div class="visitor-eye" aria-hidden="true">👀</div>
+<section class="webops-panel" id="website-operations" aria-live="polite">
+  <div class="webops-head">
+    <div class="webops-title-wrap">
+      <div class="webops-icon" aria-hidden="true">🌐</div>
       <div>
-        <h2>Wie kijkt er mee?</h2>
-        <p class="visitor-subtitle">Echte bezoeken, los van dashboardverversingen en automatische scanners</p>
+        <h2>Website Operations</h2>
+        <p class="webops-subtitle">Bezoeken over alle publieke Voorbij-diensten via Nginx Proxy Manager</p>
       </div>
     </div>
-    <div class="visitor-updated" id="visitor-updated">Gegevens laden…</div>
+    <div class="webops-updated" id="webops-updated">Gegevens laden…</div>
   </div>
 
-  <div class="visitor-stats">
-    <div class="visitor-stat"><strong id="visitor-external">–</strong><span>Externe bezoeken</span></div>
-    <div class="visitor-stat"><strong id="visitor-unique">–</strong><span>Unieke adressen</span></div>
-    <div class="visitor-stat"><strong id="visitor-bots">–</strong><span>Bots en scanners</span></div>
-    <div class="visitor-stat"><strong id="visitor-blocked">–</strong><span>Geblokkeerde scans</span></div>
+  <div class="webops-summary">
+    <div class="webops-stat"><strong id="webops-total">–</strong><span>Externe sessies vandaag</span></div>
+    <div class="webops-stat"><strong id="webops-unique">–</strong><span>Unieke externe adressen</span></div>
+    <div class="webops-stat"><strong id="webops-active-sites">–</strong><span>Sites met bezoek</span></div>
+    <div class="webops-stat"><strong id="webops-scans">–</strong><span>Bots en scanners</span></div>
   </div>
 
-  <div class="visitor-body">
-    <div class="visitor-box">
-      <h3>Laatste externe bezoeken</h3>
-      <div class="visitor-list" id="visitor-list"><div class="visitor-empty">Bezoekersgegevens worden voorbereid…</div></div>
+  <div class="webops-body">
+    <div class="webops-box">
+      <h3>Diensten vandaag</h3>
+      <div class="webops-sites" id="webops-sites"><div class="webops-empty">Sitegegevens worden opgebouwd…</div></div>
+      <h3 style="margin-top:16px">Laatste externe bezoeken</h3>
+      <div class="webops-visits" id="webops-visits"><div class="webops-empty">Bezoekersgegevens worden geladen…</div></div>
     </div>
-    <div class="visitor-box">
-      <h3>Laatste scanactiviteit</h3>
-      <div class="visitor-scan" id="visitor-scans"><div class="visitor-empty">Nog geen gegevens.</div></div>
+    <div class="webops-box">
+      <h3>Populairste diensten</h3>
+      <div class="webops-rank" id="webops-ranking"><div class="webops-empty">Nog geen ranglijst beschikbaar.</div></div>
+      <h3 style="margin-top:16px">Technisch</h3>
+      <div class="webops-rank" id="webops-technical"></div>
     </div>
   </div>
 
-  <div class="visitor-foot">
-    <span id="visitor-filtered">Achtergrondverzoeken worden niet als bezoek geteld.</span>
+  <div class="webops-foot">
+    <span id="webops-filtered">Achtergrondverzoeken worden niet als bezoek geteld.</span>
     <span>IP-adressen gemaskeerd · sessies van 30 minuten</span>
   </div>
 </section>
@@ -1549,46 +1871,111 @@ function mcRenderOperationsV4(data){mcRenderTopPlayers(data?.top_players||[]);mc
   const set=(name,value)=>{const node=id(name);if(node)node.textContent=String(value??'–')};
   const make=(tag,className,text)=>{const node=document.createElement(tag);if(className)node.className=className;if(text!==undefined)node.textContent=text;return node};
 
-  function renderVisits(visits){
-    const list=id('visitor-list');if(!list)return;list.replaceChildren();
-    if(!Array.isArray(visits)||visits.length===0){
-      list.append(make('div','visitor-empty','Vandaag is nog geen extern menselijk bezoek herkend.'));return;
-    }
-    visits.slice(0,6).forEach((visit)=>{
-      const row=make('div','visitor-row');
-      row.append(make('div','visitor-time',visit.time||'–'));
-      const main=make('div','visitor-main');
-      main.append(make('strong','',`${visit.masked_ip||'onbekend'} · ${visit.device||'apparaat'}`));
-      main.append(make('small','',`${visit.browser||'browser'} · ${visit.last_page||'/'}`));
+  const catalogue = {
+    'adresbot.voorbij.duckdns.org': ['📍','Adresbot'],
+    'blaadjes.voorbij.duckdns.org': ['🗞️','Blaadjes'],
+    'calibre.voorbij.duckdns.org': ['📚','Calibre'],
+    'gallery.voorbij.duckdns.org': ['🖼️','Gallery'],
+    'git.voorbij.duckdns.org': ['🧑‍💻','Git'],
+    'kavita.voorbij.duckdns.org': ['📖','Kavita'],
+    'luiz-air.voorbij.duckdns.org': ['✈️','Luiz-Air'],
+    'muziek.voorbij.duckdns.org': ['🎶','Muziek'],
+    'radio-luiz.voorbij.duckdns.org': ['📻','Radio Luiz'],
+    'video.voorbij.duckdns.org': ['🎬','Video'],
+    'voorbij.duckdns.org': ['🏠','Dashboard']
+  };
+
+  function siteMeta(host){
+    return catalogue[host] || ['🌐', host.replace('.voorbij.duckdns.org','')];
+  }
+
+  function renderSites(sites){
+    const wrap=id('webops-sites');if(!wrap)return;wrap.replaceChildren();
+    const known=Object.keys(catalogue);
+    const byHost=new Map((Array.isArray(sites)?sites:[]).map(site=>[site.host,site]));
+
+    known.forEach((host)=>{
+      const site=byHost.get(host)||{host,sessions:0,unique_ips:0,last_visit:null};
+      const [icon,label]=siteMeta(host);
+      const row=make('div','webops-site');
+      row.append(make('div','webops-site-icon',icon));
+      const main=make('div','webops-site-main');
+      main.append(make('strong','',label));
+      main.append(make('small','',host));
       row.append(main);
-      row.append(make('span','visitor-chip',Number(visit.page_count||1)===1?'1 pagina':`${visit.page_count} pagina’s`));
-      list.append(row);
+      const count=make('div','webops-site-count');
+      count.append(make('strong','',site.sessions??0));
+      count.append(make('span','',site.last_visit?`laatste ${site.last_visit}`:'geen bezoek'));
+      row.append(count);
+      wrap.append(row);
     });
   }
 
-  function renderScans(scans){
-    const box=id('visitor-scans');if(!box)return;box.replaceChildren();
-    if(!Array.isArray(scans)||scans.length===0){
-      box.append(make('div','visitor-empty','Vandaag is nog geen scanactiviteit herkend.'));return;
-    }
-    scans.slice(0,5).forEach((scan)=>{
-      const row=make('div','visitor-scan-line');
-      row.append(make('span','',`${scan.time||'–'} · ${scan.category||'Scan'}`));
-      row.append(make('span',scan.blocked?'visitor-scan-ok':'visitor-scan-warn',scan.blocked?`geblokkeerd (${scan.status})`:`antwoord ${scan.status}`));
-      box.append(row);
+  function renderRanking(sites){
+    const wrap=id('webops-ranking');if(!wrap)return;wrap.replaceChildren();
+    const ranked=(Array.isArray(sites)?sites:[])
+      .filter(site=>Number(site.sessions||0)>0)
+      .sort((a,b)=>Number(b.sessions||0)-Number(a.sessions||0))
+      .slice(0,6);
+
+    if(!ranked.length){wrap.append(make('div','webops-empty','Vandaag zijn nog geen externe sessies herkend.'));return;}
+
+    ranked.forEach((site,index)=>{
+      const [,label]=siteMeta(site.host);
+      const row=make('div','webops-rank-row');
+      row.append(make('span','webops-rank-no',String(index+1)));
+      row.append(make('span','webops-rank-name',label));
+      row.append(make('span','webops-rank-value',`${site.sessions} sessies`));
+      wrap.append(row);
+    });
+  }
+
+  function renderVisits(visits){
+    const wrap=id('webops-visits');if(!wrap)return;wrap.replaceChildren();
+    if(!Array.isArray(visits)||!visits.length){wrap.append(make('div','webops-empty','Vandaag is nog geen extern menselijk bezoek herkend.'));return;}
+    visits.slice(0,8).forEach((visit)=>{
+      const [,label]=siteMeta(visit.host||'voorbij.duckdns.org');
+      const row=make('div','webops-visit');
+      row.append(make('div','webops-time',visit.time||'–'));
+      const main=make('div','webops-visit-main');
+      main.append(make('strong','',`${label} · ${visit.masked_ip||'onbekend'}`));
+      main.append(make('small','',`${visit.device||'apparaat'} · ${visit.browser||'browser'} · ${visit.last_page||'/'}`));
+      row.append(main);
+      row.append(make('span','webops-chip',Number(visit.page_count||1)===1?'1 pagina':`${visit.page_count} pagina’s`));
+      wrap.append(row);
+    });
+  }
+
+  function renderTechnical(summary){
+    const wrap=id('webops-technical');if(!wrap)return;wrap.replaceChildren();
+    const rows=[
+      ['Achtergrond',summary.background_requests??0],
+      ['Verdachte scans',summary.suspicious_requests??0],
+      ['Geblokkeerd',summary.blocked_suspicious_requests??0],
+      ['HTTP 5xx',summary.http_5xx??0]
+    ];
+    rows.forEach(([label,value])=>{
+      const row=make('div','webops-rank-row');
+      row.append(make('span','webops-rank-no','•'));
+      row.append(make('span','webops-rank-name',label));
+      row.append(make('span','webops-rank-value',value));
+      wrap.append(row);
     });
   }
 
   function render(data){
     const summary=data.summary||{};
-    set('visitor-external',summary.external_sessions??0);
-    set('visitor-unique',summary.unique_external_ips??0);
-    set('visitor-bots',summary.bots_scanners_unique??0);
-    set('visitor-blocked',summary.blocked_suspicious_requests??0);
-    set('visitor-updated',`Bijgewerkt ${data.generated_time||'–'}`);
-    set('visitor-filtered',`${summary.background_requests??0} achtergrondverzoeken gefilterd · ${summary.own_sessions??0} eigen sessies apart gehouden`);
+    const sites=Array.isArray(data.sites)?data.sites:[];
+    set('webops-total',summary.external_sessions??0);
+    set('webops-unique',summary.unique_external_ips??0);
+    set('webops-active-sites',sites.filter(site=>Number(site.sessions||0)>0).length);
+    set('webops-scans',summary.bots_scanners_unique??0);
+    set('webops-updated',`Bijgewerkt ${data.generated_time||'–'}`);
+    set('webops-filtered',`${summary.background_requests??0} achtergrondverzoeken gefilterd · ${summary.own_sessions??0} eigen sessies apart gehouden`);
+    renderSites(sites);
+    renderRanking(sites);
     renderVisits(data.recent_external_visits||[]);
-    renderScans(data.recent_scans||[]);
+    renderTechnical(summary);
   }
 
   async function load(){
@@ -1597,10 +1984,10 @@ function mcRenderOperationsV4(data){mcRenderTopPlayers(data?.top_players||[]);mc
       if(!response.ok)throw new Error(`HTTP ${response.status}`);
       render(await response.json());
     }catch(error){
-      set('visitor-updated','Geen actuele gegevens');
-      const list=id('visitor-list');
-      if(list)list.replaceChildren(make('div','visitor-empty','De bezoekerscollector heeft nog geen leesbaar overzicht gepubliceerd.'));
-      console.warn('Bezoekersoverzicht kon niet worden geladen:',error);
+      set('webops-updated','Geen actuele gegevens');
+      const wrap=id('webops-sites');
+      if(wrap)wrap.replaceChildren(make('div','webops-empty','De bezoekerscollector heeft nog geen leesbaar overzicht gepubliceerd.'));
+      console.warn('Website Operations kon niet worden geladen:',error);
     }
   }
 
@@ -1608,6 +1995,398 @@ function mcRenderOperationsV4(data){mcRenderTopPlayers(data?.top_players||[]);mc
   window.setInterval(load,60000);
 })();
 </script>
-<!-- VISITOR_DASHBOARD_V1_END -->
+<!-- WEBSITE_OPERATIONS_V2_END -->
+<!-- SECURITY_OPERATIONS_V61_START -->
+<style>
+.secops-panel{width:min(1180px,calc(100% - 32px));margin:24px auto 36px;padding:22px;border:1px solid rgba(255,178,77,.22);border-radius:20px;background:radial-gradient(circle at 92% 5%,rgba(255,140,60,.12),transparent 34%),linear-gradient(145deg,rgba(21,20,39,.97),rgba(8,14,28,.98));box-shadow:0 20px 55px rgba(0,0,0,.28);color:#edf4ff;box-sizing:border-box}
+.secops-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:18px}.secops-title-wrap{display:flex;align-items:center;gap:13px}.secops-icon{display:grid;place-items:center;width:46px;height:46px;flex:0 0 46px;border-radius:14px;background:rgba(255,167,72,.12);border:1px solid rgba(255,177,86,.28);font-size:23px}.secops-panel h2{margin:0 0 4px;font-size:clamp(20px,2.2vw,27px);letter-spacing:-.02em}.secops-subtitle{margin:0;color:rgba(222,234,255,.62);font-size:13px}.secops-updated{padding:7px 11px;border-radius:999px;white-space:nowrap;background:rgba(64,211,150,.10);border:1px solid rgba(64,211,150,.24);color:#99f2ca;font-size:12px}
+.secops-score-row{display:grid;grid-template-columns:minmax(220px,.7fr) repeat(4,minmax(0,1fr));gap:12px;margin-bottom:16px}.secops-score,.secops-stat{padding:15px;border-radius:15px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.075)}.secops-score{display:flex;align-items:center;justify-content:space-between;gap:12px}.secops-score-value{font-size:32px;font-weight:900;line-height:1}.secops-score-value small{font-size:13px;color:rgba(222,234,255,.48)}.secops-level{padding:6px 10px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.08em}.secops-level.low{background:rgba(40,214,111,.12);color:#82efad}.secops-level.guarded{background:rgba(255,203,77,.12);color:#ffd36c}.secops-level.elevated{background:rgba(255,143,61,.14);color:#ffad6f}.secops-level.high{background:rgba(255,86,86,.14);color:#ff9292}.secops-stat strong{display:block;color:#fff;font-size:25px;line-height:1.05}.secops-stat span{display:block;margin-top:4px;color:rgba(222,234,255,.58);font-size:11px}
+.secops-body{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.secops-box{padding:16px;border-radius:15px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);min-width:0}.secops-box.wide{grid-column:1/-1}.secops-box h3{margin:0 0 12px;color:rgba(238,245,255,.90);font-size:14px}.secops-bars,.secops-list,.secops-feed{display:grid;gap:8px}.secops-bar-row{display:grid;grid-template-columns:minmax(120px,1fr) minmax(80px,1.2fr) 42px;align-items:center;gap:9px}.secops-bar-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#e9efff;font-size:11px}.secops-bar-track{height:8px;overflow:hidden;border-radius:999px;background:rgba(255,255,255,.07)}.secops-bar-fill{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,#ffb04d,#ff6e57)}.secops-bar-value{text-align:right;color:#9fc1ff;font-size:11px}
+.secops-list-row{display:grid;grid-template-columns:26px minmax(0,1fr) auto;align-items:center;gap:8px;padding:9px 10px;border-radius:11px;background:rgba(255,255,255,.027)}.secops-list-icon{font-size:16px;text-align:center}.secops-list-main{min-width:0}.secops-list-main strong,.secops-list-main small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.secops-list-main strong{font-size:12px}.secops-list-main small{margin-top:2px;color:rgba(222,234,255,.46);font-size:10px}.secops-list-value{color:#a8c5ff;font-size:11px;white-space:nowrap}.secops-feed-row{display:grid;grid-template-columns:48px 25px minmax(0,1fr) auto;gap:8px;align-items:center;padding:9px 10px;border-radius:11px;background:rgba(255,255,255,.027)}.secops-time{color:#8fb7ff;font-variant-numeric:tabular-nums;font-size:11px}.secops-feed-main{min-width:0}.secops-feed-main strong,.secops-feed-main small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.secops-feed-main strong{font-size:11px}.secops-feed-main small{margin-top:2px;color:rgba(222,234,255,.48);font-size:10px}.secops-status{padding:4px 7px;border-radius:999px;font-size:9px}.secops-status.blocked{background:rgba(40,214,111,.10);color:#8debb4}.secops-status.open{background:rgba(255,177,86,.11);color:#ffc078}.secops-note{margin-top:13px;color:rgba(222,234,255,.46);font-size:11px}.secops-empty{padding:13px 4px;color:rgba(222,234,255,.52);font-size:12px}
+@media(max-width:920px){.secops-score-row{grid-template-columns:repeat(2,minmax(0,1fr))}.secops-score{grid-column:1/-1}.secops-body{grid-template-columns:1fr}.secops-box.wide{grid-column:auto}}@media(max-width:560px){.secops-panel{width:min(100% - 18px,1180px);padding:16px}.secops-score-row{grid-template-columns:1fr 1fr}.secops-updated{display:none}.secops-feed-row{grid-template-columns:42px 22px minmax(0,1fr)}.secops-status{display:none}}
+</style>
+<section class="secops-panel" id="security-operations" aria-live="polite">
+<div class="secops-head"><div class="secops-title-wrap"><div class="secops-icon">🛡️</div><div><h2>Internet Threat Monitor</h2><p class="secops-subtitle">Analyse van bots, probes en aanvalspatronen op alle NPM-hosts</p></div></div><div class="secops-updated" id="secops-updated">Gegevens laden…</div></div>
+<div class="secops-score-row"><div class="secops-score"><div><div class="secops-score-value"><span id="secops-score">–</span><small>/100</small></div><div class="secops-subtitle">Inkomende activiteit</div></div><div class="secops-level low" id="secops-level">LOW</div></div><div class="secops-stat"><strong id="secops-attacks">–</strong><span>Verdachte verzoeken</span></div><div class="secops-stat"><strong id="secops-attackers">–</strong><span>Unieke aanvallers</span></div><div class="secops-stat"><strong id="secops-blocked">–</strong><span>Geblokkeerd / niet gevonden</span></div><div class="secops-stat"><strong id="secops-success">–</strong><span>2xx/3xx-antwoorden</span></div></div>
+<div class="secops-body"><div class="secops-box"><h3>Aanvalstypen</h3><div class="secops-bars" id="secops-types"></div></div><div class="secops-box"><h3>Herkomst</h3><div class="secops-list" id="secops-countries"></div></div><div class="secops-box"><h3>Meest benaderde diensten</h3><div class="secops-list" id="secops-targets"></div></div><div class="secops-box"><h3>Top aanvallers</h3><div class="secops-list" id="secops-attackers-list"></div></div><div class="secops-box wide"><h3>Laatste dreigingsactiviteit</h3><div class="secops-feed" id="secops-feed"></div></div></div>
+<div class="secops-note" id="secops-note">De score meet inkomende activiteit en is geen bewijs van een succesvolle inbraak.</div></section>
+<script>
+(()=>{const endpoint='/minecraft-status/visitors.json',id=v=>document.getElementById(v),set=(n,v)=>{const e=id(n);if(e)e.textContent=String(v??'–')},make=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e},siteName=h=>({'voorbij.duckdns.org':'Dashboard','video.voorbij.duckdns.org':'Video','luiz-air.voorbij.duckdns.org':'Luiz-Air','kavita.voorbij.duckdns.org':'Kavita','calibre.voorbij.duckdns.org':'Calibre','blaadjes.voorbij.duckdns.org':'Blaadjes','gallery.voorbij.duckdns.org':'Gallery','git.voorbij.duckdns.org':'Git','muziek.voorbij.duckdns.org':'Muziek','radio-luiz.voorbij.duckdns.org':'Radio Luiz','adresbot.voorbij.duckdns.org':'Adresbot'}[h]||h);
+function bars(a){const w=id('secops-types');if(!w)return;w.replaceChildren();if(!a?.length){w.append(make('div','secops-empty','Geen aanvalspatronen herkend.'));return}const m=Math.max(...a.map(x=>+x.count||0),1);a.slice(0,8).forEach(x=>{const r=make('div','secops-bar-row'),tr=make('span','secops-bar-track'),f=make('span','secops-bar-fill');f.style.width=`${Math.max(3,(+x.count||0)/m*100)}%`;tr.append(f);r.append(make('span','secops-bar-name',x.name),tr,make('span','secops-bar-value',x.count));w.append(r)})}
+function list(wid,a,type,enabled=true){const w=id(wid);if(!w)return;w.replaceChildren();if(type==='country'&&!enabled)w.append(make('div','secops-empty','GeoIP-database nog niet actief; landen zijn voorlopig onbekend.'));if(!a?.length)return;a.slice(0,8).forEach(x=>{const r=make('div','secops-list-row'),main=make('div','secops-list-main');let icon='🎯',title='',sub='',val='';if(type==='country'){icon=x.flag||'🌍';title=x.name||'Onbekend';sub=x.code||'ZZ';val=`${x.count} probes`}else if(type==='target'){title=siteName(x.host);sub=x.host;val=x.count}else{icon=x.flag||'🌍';title=`${x.masked_ip} · ${x.country||'Onbekend'}`;sub=(x.categories||[]).join(' · ')||'scanner';val=`${x.requests} · ${x.last_seen}`}r.append(make('span','secops-list-icon',icon));main.append(make('strong','',title),make('small','',sub));r.append(main,make('span','secops-list-value',val));w.append(r)})}
+function feed(a){const w=id('secops-feed');if(!w)return;w.replaceChildren();if(!a?.length){w.append(make('div','secops-empty','Geen recente dreigingsactiviteit.'));return}a.slice(0,12).forEach(x=>{const r=make('div','secops-feed-row'),main=make('div','secops-feed-main');main.append(make('strong','',`${x.category} · ${siteName(x.host)}`),make('small','',`${x.masked_ip} · ${x.path}`));r.append(make('span','secops-time',x.time||'–'),make('span','',x.flag||'🌍'),main,make('span',`secops-status ${x.blocked?'blocked':'open'}`,x.status));w.append(r)})}
+function render(d){const s=d.security||{};set('secops-score',s.score??0);set('secops-level',s.level||'LOW');const l=id('secops-level');if(l)l.className=`secops-level ${s.state||'low'}`;set('secops-attacks',s.suspicious_requests??0);set('secops-attackers',s.unique_attackers??0);set('secops-blocked',s.blocked_requests??0);set('secops-success',s.successful_responses??0);set('secops-updated',`Bijgewerkt ${d.generated_time||'–'}`);set('secops-note',s.explanation||'De score meet inkomende activiteit en is geen bewijs van een succesvolle inbraak.');bars(s.attack_types);list('secops-countries',s.countries,'country',!!s.geoip_enabled);list('secops-targets',s.target_sites,'target');list('secops-attackers-list',s.top_attackers,'attacker');feed(s.recent_events)}
+async function load(){try{const r=await fetch(`${endpoint}?ts=${Date.now()}`,{cache:'no-store'});if(!r.ok)throw Error(`HTTP ${r.status}`);render(await r.json())}catch(e){set('secops-updated','Geen actuele gegevens');console.warn('Threat Monitor kon niet worden geladen:',e)}}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',load,{once:true});else load();setInterval(load,60000)})();
+</script>
+<!-- SECURITY_OPERATIONS_V61_END -->
+
+<div id="minecraft-screen-flash" class="minecraft-screen-flash" aria-hidden="true"></div>
+<div id="minecraft-achievement" class="minecraft-achievement" role="status" aria-live="polite">
+  <strong>Achievement unlocked!</strong>
+  <span>Dashboard Explorer</span>
+</div>
+<div id="minecraft-steve-speech" class="minecraft-steve-speech" role="status" aria-live="polite"></div>
+<div id="minecraft-herobrine" class="minecraft-herobrine" aria-hidden="true">
+  <img src="/img/steve-pickaxe.png" alt="">
+  <span class="minecraft-herobrine-eyes"></span>
+</div>
+<div id="minecraft-steve-popup" class="minecraft-steve-popup" aria-hidden="true">
+  <img src="/img/steve-pickaxe.png" alt="Steve met houweel">
+</div>
+
+<!-- MINECRAFT_EASTER_EGG_JS_START -->
+<script>
+(() => {
+  function mcPlayTone(kind) {
+    try {
+      const AudioContextClass =
+        window.AudioContext || window.webkitAudioContext;
+
+      if (!AudioContextClass) return;
+
+      const ctx = new AudioContextClass();
+      const now = ctx.currentTime;
+
+      const tone = (
+        start,
+        frequency,
+        duration,
+        type = 'square',
+        volume = 0.10
+      ) => {
+        const oscillator = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        oscillator.type = type;
+        oscillator.frequency.setValueAtTime(frequency, start);
+
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(
+          volume,
+          start + 0.012
+        );
+        gain.gain.exponentialRampToValueAtTime(
+          0.0001,
+          start + duration
+        );
+
+        oscillator.connect(gain);
+        gain.connect(ctx.destination);
+
+        oscillator.start(start);
+        oscillator.stop(start + duration + 0.02);
+      };
+
+      if (kind === 'chicken') {
+        tone(now, 315, 0.17);
+        tone(now + 0.18, 370, 0.16);
+        tone(now + 0.34, 285, 0.18);
+      }
+
+      if (kind === 'creeper') {
+        tone(now, 120, 0.55, 'sawtooth', 0.07);
+        tone(now + 0.08, 95, 0.50, 'sawtooth', 0.06);
+      }
+
+      if (kind === 'achievement') {
+        tone(now, 660, 0.16, 'sine', 0.08);
+        tone(now + 0.16, 880, 0.20, 'sine', 0.08);
+      }
+
+      window.setTimeout(() => ctx.close(), 1200);
+    } catch (error) {
+      console.debug(
+        'Minecraft-geluid kon niet worden afgespeeld:',
+        error
+      );
+    }
+  }
+
+  function mcShowAchievement() {
+    const toast = document.getElementById(
+      'minecraft-achievement'
+    );
+
+    if (!toast) return;
+
+    toast.classList.remove('show');
+    void toast.offsetWidth;
+    toast.classList.add('show');
+
+    mcPlayTone('achievement');
+
+    window.setTimeout(
+      () => toast.classList.remove('show'),
+      3700
+    );
+  }
+
+  function mcContextLines() {
+    const data =
+      typeof mcLastData !== 'undefined' ? mcLastData : null;
+
+    const players = Array.isArray(data?.players)
+      ? data.players
+      : [];
+
+    const hour = new Date().getHours();
+    const period = String(
+      data?.day_period || ''
+    ).toLowerCase();
+
+    if (players.includes('ComboKingNL')) {
+      return [
+        'ComboKingNL is online!',
+        'Have fun, Luiz!',
+        'Luiz is building again!'
+      ];
+    }
+
+    if (
+      hour >= 20 ||
+      hour < 7 ||
+      period.includes('nacht') ||
+      period.includes('night')
+    ) {
+      return [
+        'Monsters will spawn soon…',
+        'Better place some torches!',
+        'Night is coming…'
+      ];
+    }
+
+    return [];
+  }
+
+  function showMinecraftSteve() {
+    const popup = document.getElementById(
+      'minecraft-steve-popup'
+    );
+    const speech = document.getElementById(
+      'minecraft-steve-speech'
+    );
+    const flash = document.getElementById(
+      'minecraft-screen-flash'
+    );
+    const herobrine = document.getElementById(
+      'minecraft-herobrine'
+    );
+    const grassBlock = document.querySelector(
+      '.minecraft-title-icon'
+    );
+
+    if (!popup || !speech || !grassBlock) return;
+    if (popup.classList.contains('show')) return;
+
+    const roll = Math.random();
+
+    const rareHerobrine = roll < 0.005;
+    const rareChicken =
+      !rareHerobrine && roll < 0.055;
+    const rareCreeper =
+      !rareHerobrine &&
+      !rareChicken &&
+      roll < 0.075;
+
+    const items = [
+      '💎',
+      '🟩',
+      '🧨',
+      '🥩',
+      '🐟',
+      '🪓',
+      '🕯️'
+    ];
+
+    const commonLines = [
+      'Ready to mine!',
+      'Let’s build something!',
+      'Diamonds this way!',
+      'Mind the lava!',
+      'One more block…',
+      'Time to craft!',
+      'Who took my torch?',
+      'I heard a zombie!',
+      'No digging straight down!',
+      `Found something! ${items[
+        Math.floor(Math.random() * items.length)
+      ]}`
+    ];
+
+    const contextual = mcContextLines();
+
+    const linePool =
+      contextual.length && Math.random() < 0.45
+        ? contextual
+        : commonLines;
+
+    let line =
+      linePool[
+        Math.floor(Math.random() * linePool.length)
+      ];
+
+    let speechClass = 'minecraft-steve-speech';
+
+    if (rareChicken) {
+      line = 'CHICKEN JOCKEY!!';
+      speechClass += ' rare';
+    } else if (rareCreeper) {
+      line = 'SSSSSSS…';
+      speechClass += ' danger';
+    } else if (rareHerobrine) {
+      line = '… I can see you.';
+      speechClass += ' dark';
+    }
+
+    speech.className = speechClass;
+    speech.textContent = line;
+
+    popup.classList.remove('show');
+    speech.classList.remove('show');
+
+    void popup.offsetWidth;
+
+    popup.classList.add('show');
+
+    window.setTimeout(() => {
+      speech.classList.add('show');
+
+      if (rareChicken) {
+        mcPlayTone('chicken');
+      }
+
+      if (rareCreeper && flash) {
+        flash.className =
+          'minecraft-screen-flash creeper';
+        void flash.offsetWidth;
+        mcPlayTone('creeper');
+      }
+
+      if (rareHerobrine) {
+        if (flash) {
+          flash.className =
+            'minecraft-screen-flash herobrine';
+        }
+
+        if (herobrine) {
+          herobrine.classList.remove('show');
+          void herobrine.offsetWidth;
+          herobrine.classList.add('show');
+        }
+      }
+    }, 650);
+
+    const rect = grassBlock.getBoundingClientRect();
+
+    for (let i = 0; i < 10; i++) {
+      const particle = document.createElement('span');
+
+      particle.className = 'minecraft-particle';
+      particle.style.left =
+        `${rect.left + rect.width / 2}px`;
+      particle.style.top =
+        `${rect.top + rect.height / 2}px`;
+
+      particle.style.setProperty(
+        '--x',
+        `${Math.round(Math.random() * 120 - 60)}px`
+      );
+
+      particle.style.setProperty(
+        '--y',
+        `${Math.round(Math.random() * -90 - 20)}px`
+      );
+
+      document.body.appendChild(particle);
+
+      window.setTimeout(
+        () => particle.remove(),
+        1000
+      );
+    }
+
+    try {
+      if (
+        !sessionStorage.getItem(
+          'minecraft-dashboard-achievement'
+        )
+      ) {
+        sessionStorage.setItem(
+          'minecraft-dashboard-achievement',
+          '1'
+        );
+
+        window.setTimeout(
+          mcShowAchievement,
+          950
+        );
+      }
+    } catch (_) {
+      // Werkt ook wanneer sessionStorage is uitgeschakeld.
+    }
+
+    window.setTimeout(() => {
+      popup.classList.remove('show');
+
+      speech.className =
+        'minecraft-steve-speech';
+
+      speech.textContent = '';
+
+      if (flash) {
+        flash.className =
+          'minecraft-screen-flash';
+      }
+
+      if (herobrine) {
+        herobrine.classList.remove('show');
+      }
+    }, 3900);
+  }
+
+  function initMinecraftEasterEgg() {
+    const block = document.querySelector(
+      '.minecraft-title-icon'
+    );
+
+    if (!block) {
+      console.warn(
+        'Minecraft-grasblok niet gevonden'
+      );
+      return;
+    }
+
+    block.addEventListener(
+      'click',
+      showMinecraftSteve
+    );
+
+    block.addEventListener(
+      'keydown',
+      event => {
+        if (
+          event.key === 'Enter' ||
+          event.key === ' '
+        ) {
+          event.preventDefault();
+          showMinecraftSteve();
+        }
+      }
+    );
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener(
+      'DOMContentLoaded',
+      initMinecraftEasterEgg,
+      { once: true }
+    );
+  } else {
+    initMinecraftEasterEgg();
+  }
+})();
+</script>
+<!-- MINECRAFT_EASTER_EGG_JS_END -->
+
 </body>
 </html>
