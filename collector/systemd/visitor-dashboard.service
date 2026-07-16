@@ -1,0 +1,18 @@
+[Unit]
+Description=Home Operations Center visitor collector
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=dashboard
+Group=dashboard
+
+ExecStart=/usr/bin/python3 /opt/dashboard-voorbij/collector/visitor_collector.py --config /etc/dashboard-voorbij/visitors.ini
+
+Nice=10
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

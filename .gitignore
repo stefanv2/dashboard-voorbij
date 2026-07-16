@@ -49,3 +49,11 @@ img/
 
 # Eenmalige patch- en conversiescripts
 /patch_*.py
+
+# Visitor collector lokale configuratie en data
+/collector/visitors.ini
+/collector/*.mmdb
+/collector/*.json
+/collector/__pycache__/
+/collector/**/*.tar.gz
+/collector/**/*.zip

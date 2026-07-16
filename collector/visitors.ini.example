@@ -1,0 +1,22 @@
+[collector]
+
+# Pad naar de accesslogs van Nginx Proxy Manager.
+log_glob = /path/to/nginx-proxy-manager/data/logs/proxy-host-*_access.log*
+
+# Openbare JSON die het dashboard mag uitlezen.
+public_output = /path/to/dashboard/minecraft-status/visitors.json
+
+# Uitgebreide privé-uitvoer buiten de webroot.
+private_output = /path/to/private-state/visitors-private.json
+
+# Optionele MaxMind GeoLite2 Country-database.
+geoip_db = /path/to/GeoLite2-Country.mmdb
+
+timezone = Europe/Amsterdam
+session_minutes = 30
+recent_visits = 8
+recent_scans = 8
+
+# Eigen publieke IP-adressen, gescheiden door komma's.
+own_ips =
+
