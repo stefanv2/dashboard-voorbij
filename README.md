@@ -370,3 +370,19 @@ Privé/persoonlijk project. Voeg een officiële licentie toe als deze repository
 ## Auteur
 
 Gemaakt en onderhouden door **Stefan Voorbij**.
+
+## Environment configuration
+
+The optional dashboard API uses Navidrome/Subsonic credentials.
+
+Create the local environment file:
+
+    cp .env.example .env
+
+Then edit `.env` and configure:
+
+    NAVIDROME_URL=http://your-navidrome-host:4533
+    NAVIDROME_USER=dashboard-user
+    NAVIDROME_PASSWORD=your-password
+
+Never commit the real `.env` file.
